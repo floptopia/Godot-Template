@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Platformer Tutorial - Godot Template Generator</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="../../styles/code-highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-content {
+            background-color: var(--background-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumbs a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumbs i {
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tutorial-content h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content ul, .tutorial-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .tutorial-content li {
+            margin-bottom: 10px;
+        }
+        
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tutorial-nav a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+        
+        .tutorial-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tutorial-nav a i {
+            margin: 0 8px;
+        }
+        
+        .tutorial-section {
+            margin-bottom: 40px;
+        }
+        
+        .note-box {
+            background-color: rgba(71, 140, 191, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .image-container .caption {
+            margin-top: 10px;
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        .node-structure {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 20px;
+        }
+        
+        .node-parent {
+            margin-bottom: 5px;
+        }
+        
+        .node-child {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .node-nested {
+            margin-left: 40px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../../assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#tutorials" class="active">Tutorials</a></li>
+                    <li><a href="../../index.html#generator">AI Generator</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="tutorials">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="../../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../../index.html#tutorials">Tutorials</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>2D Platformer</span>
+            </div>
+            
+            <div class="section-header">
+                <h2>Creating a 2D Platformer in Godot</h2>
+                <p>Learn how to build a complete platformer game with physics-based movement, animations, collectibles, and level transitions</p>
+            </div>
+            
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h2>Introduction</h2>
+                    <p>2D platformers are among the most popular game genres, featuring side-scrolling gameplay where players navigate by running and jumping across platforms. Games like Super Mario Bros, Hollow Knight, and Celeste have set high standards for platformer mechanics and level design.</p>
+                    
+                    <p>In this tutorial, we'll create a complete 2D platformer game in Godot, covering:</p>
+                    
+                    <ul>
+                        <li>Setting up a smooth character controller with physics</li>
+                        <li>Implementing animations with a state machine</li>
+                        <li>Creating a collectible system with score tracking</li>
+                        <li>Building level transitions and game progression</li>
+                        <li>Adding environmental hazards and enemies</li>
+                    </ul>
+                    
+                    <p>By the end, you'll have a solid foundation for a platformer game that you can expand with your own creative ideas.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Project Setup</h2>
+                    
+                    <h3>Creating a New Project</h3>
+                    <p>Let's start by creating a new Godot project:</p>
+                    <ol>
+                        <li>Open Godot Engine</li>
+                        <li>Click "New Project"</li>
+                        <li>Name it "2DPlatformer"</li>
+                        <li>Choose a directory location</li>
+                        <li>Select "2D Renderer"</li>
+                        <li>Click "Create & Edit"</li>
+                    </ol>
+                    
+                    <h3>Project Structure</h3>
+                    <p>Let's set up a clean project structure. Create the following folders in your project:</p>
+                    
+                    <ul>
+                        <li><strong>scenes</strong> - For game scenes (player, levels, UI, etc.)</li>
+                        <li><strong>scripts</strong> - For GDScript files</li>
+                        <li><strong>assets</strong> - For sprites, sounds, etc.</li>
+                        <li><strong>resources</strong> - For resource files like animations</li>
+                    </ul>
+                    
+                    <h3>Setting Up the Main Scene</h3>
+                    <p>Let's create the main game scene:</p>
+                    <ol>
+                        <li>Create a new scene (Scene → New Scene)</li>
+                        <li>Select "Node2D" as the root node and name it "Game"</li>
+                        <li>Save it as "scenes/Game.tscn"</li>
+                    </ol>
+                    
+                    <p>Our main scene will have the following structure:</p>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">Game (Node2D)</div>
+                        <div class="node-child">Level (Node2D)</div>
+                        <div class="node-child">Player (CharacterBody2D)</div>
+                        <div class="node-child">Collectibles (Node2D)</div>
+                        <div class="node-child">Hazards (Node2D)</div>
+                        <div class="node-child">UI (CanvasLayer)</div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Player Controller</h2>
+                    
+                    <h3>Creating the Player Scene</h3>
+                    <p>Let's create a separate scene for our player character:</p>
+                    <ol>
+                        <li>Create a new scene (Scene → New Scene)</li>
+                        <li>Select "CharacterBody2D" as the root node and name it "Player"</li>
+                        <li>Add a CollisionShape2D as a child and set it to a capsule shape</li>
+                        <li>Add a Sprite2D for the player's appearance</li>
+                        <li>Add an AnimationPlayer for character animations</li>
+                        <li>Add an AnimationTree for managing animation states</li>
+                        <li>Save it as "scenes/Player.tscn"</li>
+                    </ol>
+                    
+                    <p>The player scene should look like this:</p>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">Player (CharacterBody2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">AnimationPlayer</div>
+                        <div class="node-child">AnimationTree</div>
+                        <div class="node-child">CoyoteTimer (Timer)</div>
+                        <div class="node-child">JumpBufferTimer (Timer)</div>
+                    </div>
+                    
+                    <h3>Player Movement Script</h3>
+                    <p>Now let's implement the player movement script. This is based on our <a href="../movement/2d-platform-movement.html">2D Platform Movement</a> tutorial, but with additions for a complete game:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> CharacterBody2D</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Movement parameters</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> speed: <span class="code-builtin">float</span> = <span class="code-number">300.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> acceleration: <span class="code-builtin">float</span> = <span class="code-number">1500.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> friction: <span class="code-builtin">float</span> = <span class="code-number">1000.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> jump_velocity: <span class="code-builtin">float</span> = <span class="code-number">-500.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> jump_cut_height: <span class="code-builtin">float</span> = <span class="code-number">0.5</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> coyote_time: <span class="code-builtin">float</span> = <span class="code-number">0.15</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> jump_buffer_time: <span class="code-builtin">float</span> = <span class="code-number">0.1</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> air_control: <span class="code-builtin">float</span> = <span class="code-number">0.7</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># State variables</span></div>
+<div class="code-line"><span class="code-keyword">var</span> gravity = <span class="code-builtin">ProjectSettings</span>.get_setting(<span class="code-string">"physics/2d/default_gravity"</span>)</div>
+<div class="code-line"><span class="code-keyword">var</span> coyote_timer = <span class="code-number">0.0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> jump_buffer_timer = <span class="code-number">0.0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> was_on_floor = <span class="code-builtin">false</span></div>
+<div class="code-line"><span class="code-keyword">var</span> can_double_jump = <span class="code-builtin">false</span></div>
+<div class="code-line"><span class="code-keyword">var</span> facing_right = <span class="code-builtin">true</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Node references</span></div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> sprite = $Sprite2D</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> animation_tree = $AnimationTree</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> animation_state = animation_tree.get(<span class="code-string">"parameters/playback"</span>)</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> coyote_timer_node = $CoyoteTimer</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> jump_buffer_timer_node = $JumpBufferTimer</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Signals</span></div>
+<div class="code-line"><span class="code-signal">signal</span> player_died</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _ready():</div>
+<div class="code-line">    <span class="code-comment"># Set up timers</span></div>
+<div class="code-line">    coyote_timer_node.wait_time = coyote_time</div>
+<div class="code-line">    coyote_timer_node.one_shot = <span class="code-builtin">true</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    jump_buffer_timer_node.wait_time = jump_buffer_time</div>
+<div class="code-line">    jump_buffer_timer_node.one_shot = <span class="code-builtin">true</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Initialize animation tree</span></div>
+<div class="code-line">    animation_tree.active = <span class="code-builtin">true</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _physics_process(delta):</div>
+<div class="code-line">    <span class="code-comment"># Apply gravity</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-keyword">not</span> is_on_floor():</div>
+<div class="code-line">        <span class="code-keyword">var</span> gravity_multiplier = <span class="code-number">1.2</span> <span class="code-keyword">if</span> velocity.y > <span class="code-number">0</span> <span class="code-keyword">else</span> <span class="code-number">1.0</span></div>
+<div class="code-line">        velocity.y += gravity * gravity_multiplier * delta</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Check for coyote time</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> was_on_floor <span class="code-keyword">and</span> <span class="code-keyword">not</span> is_on_floor() <span class="code-keyword">and</span> <span class="code-keyword">not</span> jump_buffer_timer_node.is_stopped():</div>
+<div class="code-line">        <span class="code-comment"># We just walked off an edge but have a jump queued</span></div>
+<div class="code-line">        perform_jump()</div>
+<div class="code-line">    <span class="code-keyword">elif</span> was_on_floor <span class="code-keyword">and</span> <span class="code-keyword">not</span> is_on_floor():</div>
+<div class="code-line">        <span class="code-comment"># Start coyote time</span></div>
+<div class="code-line">        coyote_timer_node.start()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Handle jump input</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-builtin">Input</span>.is_action_just_pressed(<span class="code-string">"jump"</span>):</div>
+<div class="code-line">        <span class="code-keyword">if</span> is_on_floor() <span class="code-keyword">or</span> <span class="code-keyword">not</span> coyote_timer_node.is_stopped():</div>
+<div class="code-line">            <span class="code-comment"># Jump from ground</span></div>
+<div class="code-line">            perform_jump()</div>
+<div class="code-line">        <span class="code-keyword">elif</span> can_double_jump:</div>
+<div class="code-line">            <span class="code-comment"># Double jump</span></div>
+<div class="code-line">            perform_jump()</div>
+<div class="code-line">            can_double_jump = <span class="code-builtin">false</span></div>
+<div class="code-line">        <span class="code-keyword">else</span>:</div>
+<div class="code-line">            <span class="code-comment"># Buffer the jump for a short time</span></div>
+<div class="code-line">            jump_buffer_timer_node.start()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Handle jump release for variable jump height</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-builtin">Input</span>.is_action_just_released(<span class="code-string">"jump"</span>) <span class="code-keyword">and</span> velocity.y < <span class="code-number">0</span>:</div>
+<div class="code-line">        velocity.y *= jump_cut_height</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Get horizontal movement direction</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> direction = <span class="code-builtin">Input</span>.get_axis(<span class="code-string">"move_left"</span>, <span class="code-string">"move_right"</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Apply appropriate acceleration/friction</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> current_acceleration = acceleration</div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-keyword">not</span> is_on_floor():</div>
+<div class="code-line">        current_acceleration *= air_control</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-keyword">if</span> direction != <span class="code-number">0</span>:</div>
+<div class="code-line">        <span class="code-comment"># Accelerate when moving</span></div>
+<div class="code-line">        velocity.x = move_toward(velocity.x, direction * speed, current_acceleration * delta)</div>
+<div class="code-line">        </div>
+<div class="code-line">        <span class="code-comment"># Update facing direction</span></div>
+<div class="code-line">        <span class="code-keyword">if</span> direction > <span class="code-number">0</span> <span class="code-keyword">and</span> <span class="code-keyword">not</span> facing_right:</div>
+<div class="code-line">            flip_character(<span class="code-builtin">true</span>)</div>
+<div class="code-line">        <span class="code-keyword">elif</span> direction < <span class="code-number">0</span> <span class="code-keyword">and</span> facing_right:</div>
+<div class="code-line">            flip_character(<span class="code-builtin">false</span>)</div>
+<div class="code-line">    <span class="code-keyword">else</span>:</div>
+<div class="code-line">        <span class="code-comment"># Apply friction when not pressing movement keys</span></div>
+<div class="code-line">        velocity.x = move_toward(velocity.x, <span class="code-number">0</span>, friction * delta)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Update animation state</span></div>
+<div class="code-line">    update_animation_state()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Store floor state for next frame</span></div>
+<div class="code-line">    was_on_floor = is_on_floor()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Apply movement</span></div>
+<div class="code-line">    move_and_slide()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Check if just landed</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-keyword">not</span> was_on_floor <span class="code-keyword">and</span> is_on_floor():</div>
+<div class="code-line">        can_double_jump = <span class="code-builtin">true</span>  <span class="code-comment"># Reset double jump when landing</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> perform_jump():</div>
+<div class="code-line">    velocity.y = jump_velocity</div>
+<div class="code-line">    coyote_timer_node.stop()</div>
+<div class="code-line">    jump_buffer_timer_node.stop()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Play jump animation</span></div>
+<div class="code-line">    animation_state.travel(<span class="code-string">"jump"</span>)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> flip_character(is_right):</div>
+<div class="code-line">    facing_right = is_right</div>
+<div class="code-line">    sprite.flip_h = <span class="code-keyword">not</span> is_right</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> update_animation_state():</div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-keyword">not</span> is_on_floor():</div>
+<div class="code-line">        <span class="code-keyword">if</span> velocity.y < <span class="code-number">0</span>:</div>
+<div class="code-line">            animation_state.travel(<span class="code-string">"jump"</span>)</div>
+<div class="code-line">        <span class="code-keyword">else</span>:</div>
+<div class="code-line">            animation_state.travel(<span class="code-string">"fall"</span>)</div>
+<div class="code-line">    <span class="code-keyword">elif</span> <span class="code-builtin">abs</span>(velocity.x) > <span class="code-number">10</span>:</div>
+<div class="code-line">        animation_state.travel(<span class="code-string">"run"</span>)</div>
+<div class="code-line">    <span class="code-keyword">else</span>:</div>
+<div class="code-line">        animation_state.travel(<span class="code-string">"idle"</span>)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> take_damage():</div>
+<div class="code-line">    <span class="code-comment"># Play death animation</span></div>
+<div class="code-line">    animation_state.travel(<span class="code-string">"death"</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Disable player controls</span></div>
+<div class="code-line">    set_physics_process(<span class="code-builtin">false</span>)</div>
+<div class="code-line">    set_process_input(<span class="code-builtin">false</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal for game to handle</span></div>
+<div class="code-line">    player_died.emit()</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> respawn(position):</div>
+<div class="code-line">    <span class="code-comment"># Reset player state</span></div>
+<div class="code-line">    global_position = position</div>
+<div class="code-line">    velocity = <span class="code-builtin">Vector2</span>.ZERO</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Re-enable player controls</span></div>
+<div class="code-line">    set_physics_process(<span class="code-builtin">true</span>)</div>
+<div class="code-line">    set_process_input(<span class="code-builtin">true</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Reset animation</span></div>
+<div class="code-line">    animation_state.travel(<span class="code-string">"idle"</span>)</div>
+</code>
+                    </div>
+                    
+                    <h3>Setting Up Input Actions</h3>
+                    <p>Before testing, we need to define the input actions used in the script:</p>
+                    <ol>
+                        <li>Go to Project → Project Settings → Input Map</li>
+                        <li>Add a new action called "move_left" and map it to the left arrow key or A key</li>
+                        <li>Add a new action called "move_right" and map it to the right arrow key or D key</li>
+                        <li>Add a new action called "jump" and map it to the space bar or up arrow</li>
+                    </ol>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Animation State Machine</h2>
+                    
+                    <h3>Understanding Animation State Machines</h3>
+                    <p>Animation state machines allow you to organize and transition between different animations based on the character's state (idle, running, jumping, etc.). Godot's AnimationTree node provides a powerful way to implement this.</p>
+                    
+                    <h3>Setting Up the AnimationPlayer</h3>
+                    <p>First, let's create the basic animations for our character:</p>
+                    <ol>
+                        <li>Select the AnimationPlayer node in your Player scene</li>
+                        <li>Create new animations for: "idle", "run", "jump", "fall", and "death"</li>
+                        <li>For each animation, animate the Sprite2D's texture or frame property if using a spritesheet</li>
+                    </ol>
+                    
+                    <h3>Configuring the AnimationTree</h3>
+                    <p>Now let's set up the AnimationTree:</p>
+                    
+                    <ol>
+                        <li>Select the AnimationTree node</li>
+                        <li>Set the "Tree Root" property to "StateMachine"</li>
+                        <li>Set the "Anim Player" property to point to your AnimationPlayer node</li>
+                        <li>Create states for each animation: "idle", "run", "jump", "fall", and "death"</li>
+                        <li>Configure transitions between these states</li>
+                    </ol>
+                    
+                    <p>The diagram below shows how our animation state machine should be structured:</p>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">StateMachine</div>
+                        <div class="node-child">idle → run, jump</div>
+                        <div class="node-child">run → idle, jump</div>
+                        <div class="node-child">jump → fall</div>
+                        <div class="node-child">fall → idle (when on floor)</div>
+                        <div class="node-child">death (no transitions out)</div>
+                    </div>
+                    
+                    <h3>Animation State Script</h3>
+                    <p>Here's a script that specifically handles animation states. This can be a separate script or part of the player controller:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> Node</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Animation parameters</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> playback_speed: <span class="code-builtin">float</span> = <span class="code-number">1.0</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Node references</span></div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> animation_tree: AnimationTree = $"../AnimationTree"</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> animation_state = animation_tree.get(<span class="code-string">"parameters/playback"</span>)</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> sprite: Sprite2D = $"../Sprite2D"</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> player: CharacterBody2D = $".."</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Animation signals</span></div>
+<div class="code-line"><span class="code-signal">signal</span> animation_finished(anim_name)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _ready():</div>
+<div class="code-line">    <span class="code-comment"># Ensure the AnimationTree is active</span></div>
+<div class="code-line">    animation_tree.active = <span class="code-builtin">true</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Connect to animation_finished signal from AnimationPlayer</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> animation_player = animation_tree.get(<span class="code-string">"anim_player"</span>)</div>
+<div class="code-line">    animation_player.animation_finished.connect(_on_animation_finished)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _process(delta):</div>
+<div class="code-line">    update_animation_parameters()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Debug: Print current animation state</span></div>
+<div class="code-line">    <span class="code-comment"># print("Current animation: ", animation_state.get_current_node())</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> update_animation_parameters():</div>
+<div class="code-line">    <span class="code-comment"># Set animation speed based on player velocity</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> speed_factor = <span class="code-builtin">abs</span>(player.velocity.x) / player.speed</div>
+<div class="code-line">    animation_tree.set(<span class="code-string">"parameters/run/TimeScale/scale"</span>, <span class="code-builtin">max</span>(<span class="code-number">0.5</span>, speed_factor) * playback_speed)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Example of setting a blend position parameter (if using blend spaces)</span></div>
+<div class="code-line">    <span class="code-comment"># animation_tree.set("parameters/blend_position", Vector2(player.velocity.x, player.velocity.y))</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> play_animation(anim_name: <span class="code-builtin">String</span>):</div>
+<div class="code-line">    <span class="code-comment"># Travel to the specified animation state</span></div>
+<div class="code-line">    animation_state.travel(anim_name)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _on_animation_finished(anim_name: <span class="code-builtin">String</span>):</div>
+<div class="code-line">    <span class="code-comment"># Handle animation completion</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> anim_name == <span class="code-string">"death"</span>:</div>
+<div class="code-line">        <span class="code-comment"># Handle death animation completion</span></div>
+<div class="code-line">        <span class="code-builtin">print</span>(<span class="code-string">"Death animation completed"</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal that other nodes can connect to</span></div>
+<div class="code-line">    animation_finished.emit(anim_name)</div>
+</code>
+                    </div>
+                    
+                    <h3>Creating an Animation Blend Space</h3>
+                    <p>For more complex animations, like blending between different run speeds or directional movement, you can use a BlendSpace2D in the AnimationTree:</p>
+                    
+                    <ol>
+                        <li>In the AnimationTree, add a new BlendSpace2D node</li>
+                        <li>Configure the X axis to represent movement speed (e.g., -1 to 1)</li>
+                        <li>Configure the Y axis to represent another factor (e.g., jumping height or direction)</li>
+                        <li>Add your animations as points in this 2D space</li>
+                    </ol>
+                    
+                    <div class="note-box">
+                        <p><strong>Tip:</strong> Animation blend spaces are great for smooth transitions between related states, like different walking/running speeds or directional movement in a top-down game.</p>
+                    </div>
+                    
+                    <h3>Using Animation Signals</h3>
+                    <p>Animation signals let you trigger code at specific points in an animation:</p>
+                    
+                    <ol>
+                        <li>In the AnimationPlayer, select the animation you want to add a signal to</li>
+                        <li>On the timeline, right-click at the point you want to trigger the signal and select "Insert Call..."</li>
+                        <li>In the method name, enter a function that exists on the node being animated</li>
+                    </ol>
+                    
+                    <p>For example, in a jump animation, you might want to trigger a dust effect when the character lands:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-comment"># In your Player script</span></div>
+<div class="code-line"><span class="code-function">func</span> spawn_landing_dust():</div>
+<div class="code-line">    <span class="code-comment"># This function is called by an animation call track</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> dust_effect = preload(<span class="code-string">"res://scenes/effects/DustEffect.tscn"</span>).instantiate()</div>
+<div class="code-line">    dust_effect.global_position = global_position + <span class="code-builtin">Vector2</span>(<span class="code-number">0</span>, <span class="code-number">20</span>)  <span class="code-comment"># Position at feet</span></div>
+<div class="code-line">    get_parent().add_child(dust_effect)</div>
+</code>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Collectibles System</h2>
+                    
+                    <h3>Creating the Coin Scene</h3>
+                    <p>Let's create a collectible coin that the player can pick up:</p>
+                    <ol>
+                        <li>Create a new scene with Area2D as the root node and name it "Coin"</li>
+                        <li>Add a CollisionShape2D with a circle shape</li>
+                        <li>Add a Sprite2D for the coin's appearance</li>
+                        <li>Add an AnimationPlayer for spinning animation</li>
+                        <li>Save it as "scenes/Collectibles/Coin.tscn"</li>
+                    </ol>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">Coin (Area2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">AnimationPlayer</div>
+                        <div class="node-child">CollectSound (AudioStreamPlayer2D)</div>
+                    </div>
+                    
+                    <h3>Coin Script</h3>
+                    <p>Here's the script for our coin collectible:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> Area2D</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> value: <span class="code-builtin">int</span> = <span class="code-number">1</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> bob_height: <span class="code-builtin">float</span> = <span class="code-number">5.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> bob_speed: <span class="code-builtin">float</span> = <span class="code-number">2.0</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> animation_player: AnimationPlayer = $AnimationPlayer</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> collect_sound: AudioStreamPlayer2D = $CollectSound</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> sprite: Sprite2D = $Sprite2D</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-keyword">var</span> initial_y: <span class="code-builtin">float</span> = <span class="code-number">0.0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> time_offset: <span class="code-builtin">float</span> = <span class="code-number">0.0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> collected: <span class="code-builtin">bool</span> = <span class="code-builtin">false</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Signal emitted when coin is collected</span></div>
+<div class="code-line"><span class="code-signal">signal</span> coin_collected(value)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _ready():</div>
+<div class="code-line">    <span class="code-comment"># Store the initial y position for bobbing motion</span></div>
+<div class="code-line">    initial_y = global_position.y</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Randomize the bob timing so coins don't all move in sync</span></div>
+<div class="code-line">    time_offset = <span class="code-builtin">randf</span>() * <span class="code-number">10.0</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Connect to the body_entered signal</span></div>
+<div class="code-line">    body_entered.connect(_on_body_entered)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Start spin animation</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> animation_player.has_animation(<span class="code-string">"spin"</span>):</div>
+<div class="code-line">        animation_player.play(<span class="code-string">"spin"</span>)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _process(delta):</div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-keyword">not</span> collected:</div>
+<div class="code-line">        <span class="code-comment"># Apply bobbing motion</span></div>
+<div class="code-line">        <span class="code-keyword">var</span> bob_offset = <span class="code-builtin">sin</span>((Time.get_ticks_msec() / <span class="code-number">1000.0</span> + time_offset) * bob_speed) * bob_height</div>
+<div class="code-line">        global_position.y = initial_y + bob_offset</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _on_body_entered(body):</div>
+<div class="code-line">    <span class="code-comment"># Check if the body is the player</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> body.is_in_group(<span class="code-string">"player"</span>) <span class="code-keyword">and</span> <span class="code-keyword">not</span> collected:</div>
+<div class="code-line">        collect()</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> collect():</div>
+<div class="code-line">    <span class="code-comment"># Mark as collected to prevent duplicate collection</span></div>
+<div class="code-line">    collected = <span class="code-builtin">true</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Play collection animation if it exists</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> animation_player.has_animation(<span class="code-string">"collect"</span>):</div>
+<div class="code-line">        animation_player.play(<span class="code-string">"collect"</span>)</div>
+<div class="code-line">        <span class="code-comment"># Wait for animation to finish</span></div>
+<div class="code-line">        <span class="code-keyword">await</span> animation_player.animation_finished</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Play sound</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> collect_sound:</div>
+<div class="code-line">        collect_sound.play()</div>
+<div class="code-line">        <span class="code-comment"># Wait for sound to finish</span></div>
+<div class="code-line">        <span class="code-keyword">await</span> collect_sound.finished</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal that coin was collected</span></div>
+<div class="code-line">    coin_collected.emit(value)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Remove the coin from the scene</span></div>
+<div class="code-line">    queue_free()</div>
+</code>
+                    </div>
+                    
+                    <h3>Coin Animation</h3>
+                    <p>Create a simple animation for the coin:</p>
+                    <ol>
+                        <li>Select the AnimationPlayer in the Coin scene</li>
+                        <li>Create a new animation called "spin"</li>
+                        <li>Set it to loop</li>
+                        <li>Animate the Sprite2D's rotation or frame property</li>
+                        <li>Create another animation called "collect" that scales the coin down and fades it out</li>
+                    </ol>
+                    
+                    <h3>Score Manager</h3>
+                    <p>Now let's create a score manager to track collected coins:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> Node</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Score tracking</span></div>
+<div class="code-line"><span class="code-keyword">var</span> score: <span class="code-builtin">int</span> = <span class="code-number">0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> coins_collected: <span class="code-builtin">int</span> = <span class="code-number">0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> high_score: <span class="code-builtin">int</span> = <span class="code-number">0</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># UI references</span></div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> score_label: Label = $"../UI/ScoreLabel"</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> coins_label: Label = $"../UI/CoinsLabel"</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Signals</span></div>
+<div class="code-line"><span class="code-signal">signal</span> score_changed(new_score)</div>
+<div class="code-line"><span class="code-signal">signal</span> coins_changed(new_coins)</div>
+<div class="code-line"><span class="code-signal">signal</span> high_score_achieved(new_high_score)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _ready():</div>
+<div class="code-line">    <span class="code-comment"># Initialize UI</span></div>
+<div class="code-line">    update_score_display()</div>
+<div class="code-line">    update_coins_display()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Connect to all coin collection signals</span></div>
+<div class="code-line">    connect_all_coins()</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> connect_all_coins():</div>
+<div class="code-line">    <span class="code-comment"># Find all coins in the scene</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> coins = get_tree().get_nodes_in_group(<span class="code-string">"coins"</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Connect each coin's collected signal</span></div>
+<div class="code-line">    <span class="code-keyword">for</span> coin <span class="code-keyword">in</span> coins:</div>
+<div class="code-line">        <span class="code-keyword">if</span> <span class="code-keyword">not</span> coin.coin_collected.is_connected(_on_coin_collected):</div>
+<div class="code-line">            coin.coin_collected.connect(_on_coin_collected)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _on_coin_collected(value):</div>
+<div class="code-line">    <span class="code-comment"># Update score and coins count</span></div>
+<div class="code-line">    add_score(value * <span class="code-number">100</span>)</div>
+<div class="code-line">    add_coins(value)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> add_score(amount):</div>
+<div class="code-line">    score += amount</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Check for high score</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> score > high_score:</div>
+<div class="code-line">        high_score = score</div>
+<div class="code-line">        high_score_achieved.emit(high_score)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Update display</span></div>
+<div class="code-line">    update_score_display()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal</span></div>
+<div class="code-line">    score_changed.emit(score)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> add_coins(amount):</div>
+<div class="code-line">    coins_collected += amount</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Update display</span></div>
+<div class="code-line">    update_coins_display()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> update_score_display():</div>
+<div class="code-line">    <span class="code-keyword">if</span> score_label:</div>
+<div class="code-line">        score_label.text = <span class="code-string">"Score: "</span> + <span class="code-builtin">str</span>(score)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> update_coins_display():</div>
+<div class="code-line">    <span class="code-keyword">if</span> coins_label:</div>
+<div class="code-line">        coins_label.text = <span class="code-string">"Coins: "</span> + <span class="code-builtin">str</span>(coins_collected)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> reset_score():</div>
+<div class="code-line">    score = <span class="code-number">0</span></div>
+<div class="code-line">    update_score_display()</div>
+<div class="code-line">    score_changed.emit(score)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> reset_coins():</div>
+<div class="code-line">    coins_collected = <span class="code-number">0</span></div>
+<div class="code-line">    update_coins_display()</div>
+<div class="code-line">    coins_changed.emit(coins_collected)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> save_high_score():</div>
+<div class="code-line">    <span class="code-keyword">var</span> save_file = FileAccess.open(<span class="code-string">"user://highscore.save"</span>, FileAccess.WRITE)</div>
+<div class="code-line">    save_file.store_var(high_score)</div>
+<div class="code-line">    save_file.close()</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> load_high_score():</div>
+<div class="code-line">    <span class="code-keyword">if</span> FileAccess.file_exists(<span class="code-string">"user://highscore.save"</span>):</div>
+<div class="code-line">        <span class="code-keyword">var</span> save_file = FileAccess.open(<span class="code-string">"user://highscore.save"</span>, FileAccess.READ)</div>
+<div class="code-line">        high_score = save_file.get_var()</div>
+<div class="code-line">        save_file.close()</div>
+</code>
+                    </div>
+                    
+                    <h3>UI for Score Display</h3>
+                    <p>Let's create a simple UI to display the score and coin count:</p>
+                    <ol>
+                        <li>Add a CanvasLayer node named "UI" to your Game scene</li>
+                        <li>Add a Label child named "ScoreLabel" for the score</li>
+                        <li>Add a Label child named "CoinsLabel" for the coin count</li>
+                        <li>Position them at the top of the screen</li>
+                    </ol>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Power-Up System</h2>
+                    
+                    <h3>Creating the Power-Up Base</h3>
+                    <p>Let's create a base power-up class that we can extend for different types of power-ups:</p>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">PowerUp (Area2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">AnimationPlayer</div>
+                        <div class="node-child">CollectSound (AudioStreamPlayer2D)</div>
+                        <div class="node-child">DurationTimer (Timer)</div>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> Area2D</div>
+<div class="code-line"><span class="code-keyword">class_name</span> PowerUp</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-keyword">enum</span> PowerUpType {</div>
+<div class="code-line">    DOUBLE_JUMP,</div>
+<div class="code-line">    SPEED_BOOST,</div>
+<div class="code-line">    INVINCIBILITY,</div>
+<div class="code-line">    HIGHER_JUMP</div>
+<div class="code-line">}</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> type: PowerUpType = PowerUpType.DOUBLE_JUMP</div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> duration: <span class="code-builtin">float</span> = <span class="code-number">10.0</span>  <span class="code-comment"># Duration in seconds (0 for permanent)</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> bob_height: <span class="code-builtin">float</span> = <span class="code-number">5.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> bob_speed: <span class="code-builtin">float</span> = <span class="code-number">2.0</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> animation_player: AnimationPlayer = $AnimationPlayer</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> collect_sound: AudioStreamPlayer2D = $CollectSound</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> sprite: Sprite2D = $Sprite2D</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> duration_timer: Timer = $DurationTimer</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-keyword">var</span> initial_y: <span class="code-builtin">float</span> = <span class="code-number">0.0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> time_offset: <span class="code-builtin">float</span> = <span class="code-number">0.0</span></div>
+<div class="code-line"><span class="code-keyword">var</span> collected: <span class="code-builtin">bool</span> = <span class="code-builtin">false</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Signals</span></div>
+<div class="code-line"><span class="code-signal">signal</span> power_up_collected(type, duration)</div>
+<div class="code-line"><span class="code-signal">signal</span> power_up_expired(type)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _ready():</div>
+<div class="code-line">    <span class="code-comment"># Store initial position for bobbing effect</span></div>
+<div class="code-line">    initial_y = global_position.y</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Randomize bob timing</span></div>
+<div class="code-line">    time_offset = <span class="code-builtin">randf</span>() * <span class="code-number">10.0</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Set up duration timer</span></div>
+<div class="code-line">    duration_timer.wait_time = duration</div>
+<div class="code-line">    duration_timer.one_shot = <span class="code-builtin">true</span></div>
+<div class="code-line">    duration_timer.timeout.connect(_on_duration_timer_timeout)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Connect to body entered signal</span></div>
+<div class="code-line">    body_entered.connect(_on_body_entered)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Set appearance based on power-up type</span></div>
+<div class="code-line">    update_appearance()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Play hover animation</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> animation_player.has_animation(<span class="code-string">"hover"</span>):</div>
+<div class="code-line">        animation_player.play(<span class="code-string">"hover"</span>)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _process(delta):</div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-keyword">not</span> collected:</div>
+<div class="code-line">        <span class="code-comment"># Apply bobbing motion</span></div>
+<div class="code-line">        <span class="code-keyword">var</span> bob_offset = <span class="code-builtin">sin</span>((Time.get_ticks_msec() / <span class="code-number">1000.0</span> + time_offset) * bob_speed) * bob_height</div>
+<div class="code-line">        global_position.y = initial_y + bob_offset</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> update_appearance():</div>
+<div class="code-line">    <span class="code-comment"># Set color and possibly texture based on power-up type</span></div>
+<div class="code-line">    <span class="code-keyword">match</span> type:</div>
+<div class="code-line">        PowerUpType.DOUBLE_JUMP:</div>
+<div class="code-line">            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">0.2</span>, <span class="code-number">0.8</span>, <span class="code-number">1.0</span>)  <span class="code-comment"># Blue</span></div>
+<div class="code-line">        PowerUpType.SPEED_BOOST:</div>
+<div class="code-line">            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">0.2</span>, <span class="code-number">1.0</span>, <span class="code-number">0.2</span>)  <span class="code-comment"># Green</span></div>
+<div class="code-line">        PowerUpType.INVINCIBILITY:</div>
+<div class="code-line">            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">1.0</span>, <span class="code-number">0.8</span>, <span class="code-number">0.2</span>)  <span class="code-comment"># Gold</span></div>
+<div class="code-line">        PowerUpType.HIGHER_JUMP:</div>
+<div class="code-line">            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">1.0</span>, <span class="code-number">0.2</span>, <span class="code-number">0.8</span>)  <span class="code-comment"># Pink</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _on_body_entered(body):</div>
+<div class="code-line">    <span class="code-comment"># Check if the body is the player</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> body.is_in_group(<span class="code-string">"player"</span>) <span class="code-keyword">and</span> <span class="code-keyword">not</span> collected:</div>
+<div class="code-line">        collect(body)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> collect(player):</div>
+<div class="code-line">    <span class="code-comment"># Mark as collected</span></div>
+<div class="code-line">    collected = <span class="code-builtin">true</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Apply power-up effect to the player</span></div>
+<div class="code-line">    apply_effect(player)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Start duration timer if temporary</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> duration > <span class="code-number">0</span>:</div>
+<div class="code-line">        duration_timer.start()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Play collection animation and sound</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> animation_player.has_animation(<span class="code-string">"collect"</span>):</div>
+<div class="code-line">        animation_player.play(<span class="code-string">"collect"</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-keyword">if</span> collect_sound:</div>
+<div class="code-line">        collect_sound.play()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal</span></div>
+<div class="code-line">    power_up_collected.emit(type, duration)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Hide visual representation</span></div>
+<div class="code-line">    sprite.visible = <span class="code-builtin">false</span></div>
+<div class="code-line">    $CollisionShape2D.set_deferred(<span class="code-string">"disabled"</span>, <span class="code-builtin">true</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># If permanent or sound is playing, wait before removing</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> duration <= <span class="code-number">0</span> <span class="code-keyword">or</span> collect_sound.playing:</div>
+<div class="code-line">        <span class="code-keyword">await</span> collect_sound.finished</div>
+<div class="code-line">        </div>
+<div class="code-line">        <span class="code-comment"># Remove node if permanent power-up</span></div>
+<div class="code-line">        <span class="code-keyword">if</span> duration <= <span class="code-number">0</span>:</div>
+<div class="code-line">            queue_free()</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> apply_effect(player):</div>
+<div class="code-line">    <span class="code-comment"># Base implementation - override in child classes for specific effects</span></div>
+<div class="code-line">    <span class="code-keyword">match</span> type:</div>
+<div class="code-line">        PowerUpType.DOUBLE_JUMP:</div>
+<div class="code-line">            player.can_double_jump = <span class="code-builtin">true</span></div>
+<div class="code-line">            </div>
+<div class="code-line">        PowerUpType.SPEED_BOOST:</div>
+<div class="code-line">            player.speed *= <span class="code-number">1.5</span></div>
+<div class="code-line">            </div>
+<div class="code-line">        PowerUpType.INVINCIBILITY:</div>
+<div class="code-line">            player.invincible = <span class="code-builtin">true</span></div>
+<div class="code-line">            </div>
+<div class="code-line">        PowerUpType.HIGHER_JUMP:</div>
+<div class="code-line">            player.jump_velocity *= <span class="code-number">1.3</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> remove_effect(player):</div>
+<div class="code-line">    <span class="code-comment"># Base implementation - override in child classes</span></div>
+<div class="code-line">    <span class="code-keyword">match</span> type:</div>
+<div class="code-line">        PowerUpType.DOUBLE_JUMP:</div>
+<div class="code-line">            player.can_double_jump = <span class="code-builtin">false</span></div>
+<div class="code-line">            </div>
+<div class="code-line">        PowerUpType.SPEED_BOOST:</div>
+<div class="code-line">            player.speed /= <span class="code-number">1.5</span></div>
+<div class="code-line">            </div>
+<div class="code-line">        PowerUpType.INVINCIBILITY:</div>
+<div class="code-line">            player.invincible = <span class="code-builtin">false</span></div>
+<div class="code-line">            </div>
+<div class="code-line">        PowerUpType.HIGHER_JUMP:</div>
+<div class="code-line">            player.jump_velocity /= <span class="code-number">1.3</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _on_duration_timer_timeout():</div>
+<div class="code-line">    <span class="code-comment"># Find the player</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> player = get_tree().get_first_node_in_group(<span class="code-string">"player"</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Remove the effect</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> player:</div>
+<div class="code-line">        remove_effect(player)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal</span></div>
+<div class="code-line">    power_up_expired.emit(type)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Remove the node</span></div>
+<div class="code-line">    queue_free()</div>
+</code>
+                    </div>
+                    
+                    <h3>Implementing a Specific Power-Up</h3>
+                    <p>To create a specific power-up, you can extend the base PowerUp class:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> PowerUp</div>
+<div class="code-line"><span class="code-keyword">class_name</span> DoubleJumpPowerUp</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Custom particle effect</span></div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> particles: GPUParticles2D = $Particles</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _ready():</div>
+<div class="code-line">    <span class="code-comment"># Force this to be a double jump powerup</span></div>
+<div class="code-line">    type = PowerUpType.DOUBLE_JUMP</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Call the parent ready function</span></div>
+<div class="code-line">    <span class="code-builtin">super</span>()</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> apply_effect(player):</div>
+<div class="code-line">    <span class="code-comment"># First apply the basic effect</span></div>
+<div class="code-line">    <span class="code-builtin">super</span>.apply_effect(player)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Then add our custom effect</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> player.has_method(<span class="code-string">"add_trail_effect"</span>):</div>
+<div class="code-line">        player.add_trail_effect(<span class="code-builtin">Color</span>(<span class="code-number">0.2</span>, <span class="code-number">0.8</span>, <span class="code-number">1.0</span>, <span class="code-number">0.5</span>))</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Show special effect to indicate double jump is available</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> player.has_node(<span class="code-string">"EffectsContainer"</span>):</div>
+<div class="code-line">        <span class="code-keyword">var</span> effect_instance = particles.duplicate()</div>
+<div class="code-line">        effect_instance.emitting = <span class="code-builtin">true</span></div>
+<div class="code-line">        player.get_node(<span class="code-string">"EffectsContainer"</span>).add_child(effect_instance)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> remove_effect(player):</div>
+<div class="code-line">    <span class="code-comment"># Remove the basic effect</span></div>
+<div class="code-line">    <span class="code-builtin">super</span>.remove_effect(player)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Remove our custom effect</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> player.has_method(<span class="code-string">"remove_trail_effect"</span>):</div>
+<div class="code-line">        player.remove_trail_effect()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Remove any effect instances</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> player.has_node(<span class="code-string">"EffectsContainer"</span>):</div>
+<div class="code-line">        <span class="code-keyword">for</span> child <span class="code-keyword">in</span> player.get_node(<span class="code-string">"EffectsContainer"</span>).get_children():</div>
+<div class="code-line">            child.queue_free()</div>
+</code>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Level Transition System</h2>
+                    
+                    <h3>Creating the Level Portal</h3>
+                    <p>Let's create a portal that will transition the player to the next level when touched:</p>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">LevelPortal (Area2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">AnimationPlayer</div>
+                        <div class="node-child">PortalParticles (GPUParticles2D)</div>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> Area2D</div>
+<div class="code-line"><span class="code-keyword">class_name</span> LevelPortal</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-export">@export_file(<span class="code-string">"*.tscn"</span>)</span> <span class="code-keyword">var</span> next_level_path: <span class="code-builtin">String</span> = <span class="code-string">""</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> is_active: <span class="code-builtin">bool</span> = <span class="code-builtin">true</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> required_coins: <span class="code-builtin">int</span> = <span class="code-number">0</span>  <span class="code-comment"># Coins needed to activate the portal</span></div>

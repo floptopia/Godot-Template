@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godot Template Generator</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#tutorials">Tutorials</a></li>
+                    <li><a href="#generator">AI Generator</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Turn Game Ideas Into Godot Code</h1>
+                <p>Generate starter templates for your Godot game or follow step-by-step tutorials to learn game development</p>
+                <div class="hero-buttons">
+                    <a href="#generator" class="btn btn-primary">Generate Template</a>
+                    <a href="#tutorials" class="btn btn-secondary">Browse Tutorials</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/hero-image-placeholder.png" alt="Godot Development">
+            </div>
+        </div>
+    </section>
+
+    <section id="generator" class="generator">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI Template Generator</h2>
+                <p>Describe your game idea and get starter code for Godot</p>
+            </div>
+            <div class="generator-form">
+                <textarea id="game-idea" placeholder="Describe your game idea (e.g., 'A top-down shooter with power-ups and wave-based enemies')"></textarea>
+                <button id="generate-btn" class="btn btn-primary">Generate Template</button>
+            </div>
+            <div class="generator-results" id="results-section">
+                <!-- Results will be displayed here after generation -->
+            </div>
+        </div>
+    </section>
+
+    <section id="featured-templates" class="featured-templates">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ready-Made Templates</h2>
+                <p>Start with these popular game templates</p>
+            </div>
+            <div class="template-cards">
+                <div class="template-card">
+                    <div class="template-image">
+                        <img src="assets/topdown-shooter.png" alt="Top-down Shooter">
+                    </div>
+                    <div class="template-content">
+                        <h3>Top-down Shooter</h3>
+                        <p>A classic top-down shooter with player movement, shooting mechanics, and enemy AI</p>
+                        <a href="tutorials/topdown-shooter.html" class="btn btn-secondary">View Tutorial</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-image">
+                        <img src="assets/platformer.png" alt="2D Platformer">
+                    </div>
+                    <div class="template-content">
+                        <h3>2D Platformer</h3>
+                        <p>A side-scrolling platformer with jumping, collectibles, and obstacles</p>
+                        <a href="tutorials/platformer.html" class="btn btn-secondary">View Tutorial</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-image">
+                        <img src="assets/endless-runner.png" alt="Endless Runner">
+                    </div>
+                    <div class="template-content">
+                        <h3>Endless Runner</h3>
+                        <p>An infinite runner game with procedural obstacle generation and score tracking</p>
+                        <a href="tutorials/endless-runner.html" class="btn btn-secondary">View Tutorial</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tutorials" class="tutorials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tutorial Categories</h2>
+                <p>Step-by-step guides for Godot game development</p>
+            </div>
+            <div class="tutorial-categories">
+                <div class="category-card main-dropdown">
+                    <div class="category-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <h3>Character Movement</h3>
+                    <ul>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/movement/movement.html">Overview</a>
+                        </li>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/movement/2d-platform-movement.html">2D Platform Movement</a>
+                        </li>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/movement/topdown-movement.html">Top-down Movement</a>
+                        </li>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/movement/first-person-movement.html">First-person Movement</a>
+                        </li>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/movement/point-and-click-movement.html">Point-and-click Movement</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-card main-dropdown">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Game Templates</h3>
+                    <ul>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/games/topdown-shooter.html">Top-down Shooter</a>
+                        </li>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/games/2d-platformer.html">2D Platformer</a>
+                        </li>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/games/rpg-basics.html">RPG Basics</a>
+                        </li>
+                        <li class="dropdown-menu">
+                            <a href="tutorials/games/puzzle-game.html">Puzzle Game Mechanics</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-card main-dropdown">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Programming</h3>
+                    <ul>
+                        <li><a href="tutorials/programming/gdscript-basics.html">GDScript Basics</a></li>
+                        <li><a href="tutorials/programming/signals.html">Signals & Events</a></li>
+                        <li><a href="tutorials/programming/state-machines.html">State Machines</a></li>
+                    </ul>
+                </div>
+                <div class="category-card main-dropdown">
+                    <div class="category-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Graphics & UI</h3>
+                    <ul>
+                        <li><a href="tutorials/graphics/animation.html">Sprite Animation</a></li>
+                        <li><a href="tutorials/graphics/ui-design.html">UI Design</a></li>
+                        <li><a href="tutorials/graphics/particles.html">Particle Effects</a></li>
+                    </ul>
+                </div>
+                <div class="category-card main-dropdown">
+                    <div class="category-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>Level Design</h3>
+                    <ul>
+                        <li><a href="tutorials/level-design/tilemaps.html">TileMaps</a></li>
+                        <li><a href="tutorials/level-design/procedural.html">Procedural Generation</a></li>
+                        <li><a href="tutorials/level-design/camera.html">Camera Control</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About This Project</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>This project aims to help beginners get started with Godot game development by providing templates, tutorials, and an AI-powered code generator. Whether you're making your first game or looking to learn new techniques, our resources can help accelerate your development process.</p>
+                    <p>All code generated is provided under an open-source license and can be freely used in your projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Godot Template Generator</h2>
+                    <p>Making game development accessible</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#tutorials">Tutorials</a></li>
+                        <li><a href="#generator">AI Generator</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://godotengine.org/" target="_blank">Godot Engine</a></li>
+                        <li><a href="https://docs.godotengine.org/" target="_blank">Godot Documentation</a></li>
+                        <li><a href="https://github.com/" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Godot Template Generator. All code examples are provided under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+

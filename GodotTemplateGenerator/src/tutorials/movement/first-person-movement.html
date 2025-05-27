@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First-person Movement - Godot Template Generator</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-content {
+            background-color: var(--background-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumbs a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumbs i {
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tutorial-content h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content ul, .tutorial-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .tutorial-content li {
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #2a2a2a;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+        
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tutorial-nav a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+        
+        .tutorial-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tutorial-nav a i {
+            margin: 0 8px;
+        }
+        
+        .tutorial-section {
+            margin-bottom: 40px;
+        }
+        
+        .note-box {
+            background-color: rgba(71, 140, 191, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../../assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#tutorials" class="active">Tutorials</a></li>
+                    <li><a href="../../index.html#generator">AI Generator</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="tutorials">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="../../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../../index.html#tutorials">Tutorials</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="movement.html">Character Movement</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>First-person Movement</span>
+            </div>
+            
+            <div class="section-header">
+                <h2>First-person Movement in Godot</h2>
+                <p>Building immersive 3D character controls for first-person games</p>
+            </div>
+            
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h2>Introduction to First-person Movement</h2>
+                    <p>First-person games put players directly in the eyes of the character, creating an immersive perspective that's popular in shooters, adventure games, and walking simulators. Implementing smooth and intuitive first-person movement is crucial for creating a good player experience.</p>
+                    
+                    <p>In this tutorial, we'll cover how to implement first-person movement in Godot, including camera control, WASD movement, jumping, and additional features like head bobbing, sprinting, and crouching.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Setting Up Your Character</h2>
+                    <p>First, let's set up a basic character structure for first-person movement:</p>
+                    
+                    <h3>Node Structure</h3>
+                    <ul>
+                        <li><strong>CharacterBody3D</strong> - The main player node</li>
+                        <li>└─ <strong>CollisionShape3D</strong> - The player's collision shape (usually a capsule)</li>
+                        <li>└─ <strong>Head</strong> - A Node3D that represents the character's head/camera position</li>
+                        <li>    └─ <strong>Camera3D</strong> - The player's view camera</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <p><strong>Note:</strong> Separating the camera into a Head node allows for more flexibility, such as implementing head bobbing or crouching mechanics.</p>
+                    </div>
+                    
+                    <h3>Basic Project Setup</h3>
+                    <p>Before we start coding, make sure your project has the following:</p>
+                    <ol>
+                        <li>Create input mappings for movement: <code>move_forward</code>, <code>move_backward</code>, <code>move_left</code>, <code>move_right</code>, <code>jump</code></li>
+                        <li>Enable mouse capture in your game with <code>Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)</code></li>
+                        <li>Set up a simple 3D environment for testing with some floors and walls</li>
+                    </ol>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Basic WASD Movement in 3D</h2>
+                    <p>The foundation of first-person movement is WASD controls (or equivalent) for moving in 3D space:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody3D
+
+# Movement parameters
+@export var speed = 5.0
+@export var gravity = 20.0
+@export var jump_strength = 10.0
+
+# Get the camera
+@onready var head = $Head
+@onready var camera = $Head/Camera3D
+
+func _physics_process(delta):
+    # Add gravity when in air
+    if not is_on_floor():
+        velocity.y -= gravity * delta
+    
+    # Handle jump
+    if Input.is_action_just_pressed("jump") and is_on_floor():
+        velocity.y = jump_strength
+    
+    # Get movement input direction
+    var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+    
+    # Transform input direction based on camera orientation (only considering horizontal rotation)
+    var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    
+    # Apply horizontal movement
+    if direction:
+        velocity.x = direction.x * speed
+        velocity.z = direction.z * speed
+    else:
+        # Stop horizontal movement when no input
+        velocity.x = 0.0
+        velocity.z = 0.0
+    
+    # Apply movement
+    move_and_slide()
+                    </div>
+                    
+                    <p>This code handles basic movement, including gravity and jumping. The key is transforming the input direction by the camera's basis, so the player moves relative to where they're looking.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Mouse-Controlled Camera</h2>
+                    <p>For first-person games, the camera is typically controlled by mouse movement:</p>
+                    
+                    <div class="code-block">
+# Add these variables to your character script
+@export var mouse_sensitivity = 0.002
+@export var vertical_angle_limit = 90.0  # In degrees
+
+# Y rotation is handled by the character, X rotation by the camera
+var camera_x_rotation = 0.0
+
+func _ready():
+    # Capture the mouse
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _input(event):
+    # Handle mouse input for camera rotation
+    if event is InputEventMouseMotion:
+        # Rotate the character (body) horizontally
+        rotate_y(-event.relative.x * mouse_sensitivity)
+        
+        # Rotate the camera vertically, with limits
+        camera_x_rotation += -event.relative.y * mouse_sensitivity
+        camera_x_rotation = clamp(camera_x_rotation, deg_to_rad(-vertical_angle_limit), deg_to_rad(vertical_angle_limit))
+        head.rotation.x = camera_x_rotation
+    
+    # Add a way to release the mouse for testing
+    if event is InputEventKey and event.pressed:
+        if event.keycode == KEY_ESCAPE:
+            if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+                Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+            else:
+                Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+                    </div>
+                    
+                    <h3>Understanding Mouse Controls</h3>
+                    <ul>
+                        <li>Horizontal mouse movement (X-axis) rotates the entire character body</li>
+                        <li>Vertical mouse movement (Y-axis) rotates only the camera/head up and down</li>
+                        <li>We use clamp to prevent the camera from rotating too far up or down</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <p><strong>Tip:</strong> For a smooth camera, you might want to adjust the mouse sensitivity based on your game's needs. Some games also offer sensitivity settings to players.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Improving Movement with Acceleration</h2>
+                    <p>For more realistic movement, we can add acceleration and deceleration:</p>
+                    
+                    <div class="code-block">
+# Add these variables to your character script
+@export var acceleration = 10.0
+@export var deceleration = 15.0
+
+func _physics_process(delta):
+    # Add gravity when in air (same as before)
+    if not is_on_floor():
+        velocity.y -= gravity * delta
+    
+    # Handle jump (same as before)
+    if Input.is_action_just_pressed("jump") and is_on_floor():
+        velocity.y = jump_strength
+    
+    # Get movement input direction
+    var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+    
+    # Transform input direction based on camera orientation
+    var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    
+    # Calculate target velocity
+    var target_velocity = direction * speed
+    
+    # Apply acceleration or deceleration
+    var accel = acceleration if direction else deceleration
+    
+    # Interpolate velocity for smooth acceleration/deceleration
+    velocity.x = move_toward(velocity.x, target_velocity.x, accel * delta)
+    velocity.z = move_toward(velocity.z, target_velocity.z, accel * delta)
+    
+    # Apply movement
+    move_and_slide()
+                    </div>
+                    
+                    <p>This implementation creates a smoother feel, where the player gradually accelerates to top speed and decelerates when stopping, rather than instantly changing velocity.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Adding Head Bobbing</h2>
+                    <p>Head bobbing is a common technique to simulate the subtle movement of a person's head while walking:</p>
+                    
+                    <div class="code-block">
+# Add these variables to your character script
+@export var bob_frequency = 2.0  # Steps per second
+@export var bob_amplitude = 0.08
+@export var bob_horizontal_factor = 0.6  # How much it bobs horizontally
+var bob_time = 0.0
+var original_head_y = 0.0
+
+func _ready():
+    # ... existing code ...
+    original_head_y = head.position.y
+
+func _physics_process(delta):
+    # ... existing movement code ...
+    
+    # Calculate horizontal velocity magnitude (ignoring Y)
+    var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
+    
+    # Only bob when moving on the ground
+    if is_on_floor() and horizontal_velocity > 0.1:
+        # Increment bob timer
+        bob_time += delta * bob_frequency * (horizontal_velocity / speed)
+        
+        # Apply bobbing effect
+        var bob_vertical = sin(bob_time * PI) * bob_amplitude
+        var bob_horizontal = cos(bob_time * PI * 2) * bob_amplitude * bob_horizontal_factor
+        
+        # Apply bobbing to head position
+        head.position.y = original_head_y + bob_vertical
+        head.position.x = bob_horizontal
+    else:
+        # Smoothly return to original position when not moving
+        bob_time = 0.0
+        head.position.y = lerp(head.position.y, original_head_y, delta * 5.0)
+        head.position.x = lerp(head.position.x, 0.0, delta * 5.0)
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>Note:</strong> Head bobbing can cause motion sickness for some players. Consider making it optional in your game settings.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Sprint and Crouch Mechanics</h2>
+                    <p>Adding sprint and crouch abilities can enhance the movement options for players:</p>
+                    
+                    <div class="code-block">
+# Add these variables to your character script
+@export var sprint_speed_multiplier = 1.6
+@export var crouch_speed_multiplier = 0.6
+@export var stand_height = 2.0
+@export var crouch_height = 1.0
+@export var crouch_transition_speed = 10.0
+
+@onready var collision_shape = $CollisionShape3D
+
+var is_crouching = false
+var current_speed = 0.0
+
+func _physics_process(delta):
+    # Handle sprinting
+    var sprint_factor = 1.0
+    if Input.is_action_pressed("sprint") and is_on_floor() and not is_crouching:
+        sprint_factor = sprint_speed_multiplier
+    
+    # Handle crouching
+    var crouch_factor = 1.0
+    if Input.is_action_pressed("crouch"):
+        is_crouching = true
+        crouch_factor = crouch_speed_multiplier
+    else:
+        is_crouching = false
+    
+    # Apply current speed factor
+    current_speed = speed * sprint_factor * crouch_factor
+    
+    # Adjust collision shape and camera height for crouching
+    var target_height = crouch_height if is_crouching else stand_height
+    
+    # Assuming the collision shape is a capsule
+    collision_shape.shape.height = lerp(collision_shape.shape.height, target_height, delta * crouch_transition_speed)
+    
+    # Adjust camera position
+    var new_head_y = target_height - 0.5  # Place head slightly below the top of the capsule
+    head.position.y = lerp(head.position.y, new_head_y, delta * crouch_transition_speed)
+    
+    # ... rest of movement code, using current_speed instead of speed ...
+                    </div>
+                    
+                    <h3>Implementing Crouch Collision Checks</h3>
+                    <p>To prevent players from standing up when there's an obstacle above them:</p>
+                    
+                    <div class="code-block">
+func can_stand_up():
+    # Cast a ray upward to check for obstacles
+    var space_state = get_world_3d().direct_space_state
+    
+    # Create parameters for raycast
+    var params = PhysicsRayQueryParameters3D.new()
+    params.from = global_position
+    params.to = global_position + Vector3(0, stand_height - crouch_height, 0)
+    params.exclude = [self]  # Don't hit self
+    
+    # Perform raycast
+    var result = space_state.intersect_ray(params)
+    
+    # Return true if nothing was hit (can stand up)
+    return result.is_empty()
+
+func _physics_process(delta):
+    # ... existing code ...
+    
+    # Handle crouching
+    if Input.is_action_pressed("crouch"):
+        is_crouching = true
+        crouch_factor = crouch_speed_multiplier
+    else:
+        # Only allow standing up if there's space
+        if is_crouching and can_stand_up():
+            is_crouching = false
+        
+    # ... rest of the code ...
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Complete First-Person Controller</h2>
+                    <p>Here's a complete first-person controller that combines all the features we've covered:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody3D
+
+# Movement parameters
+@export var speed = 5.0
+@export var acceleration = 10.0
+@export var deceleration = 15.0
+@export var gravity = 20.0
+@export var jump_strength = 10.0
+@export var mouse_sensitivity = 0.002
+@export var vertical_angle_limit = 90.0  # In degrees
+
+# Sprint and crouch parameters
+@export var sprint_speed_multiplier = 1.6
+@export var crouch_speed_multiplier = 0.6
+@export var stand_height = 2.0
+@export var crouch_height = 1.0
+@export var crouch_transition_speed = 10.0
+
+# Head bob parameters
+@export var bob_frequency = 2.0  # Steps per second
+@export var bob_amplitude = 0.08
+@export var bob_horizontal_factor = 0.6
+
+# Node references
+@onready var head = $Head
+@onready var camera = $Head/Camera3D
+@onready var collision_shape = $CollisionShape3D
+
+# State variables
+var camera_x_rotation = 0.0
+var bob_time = 0.0
+var is_crouching = false
+var current_speed = 0.0
+var original_head_y = 0.0
+
+func _ready():
+    # Capture the mouse
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+    original_head_y = head.position.y
+
+func _input(event):
+    # Handle mouse input for camera rotation
+    if event is InputEventMouseMotion:
+        # Rotate the character horizontally
+        rotate_y(-event.relative.x * mouse_sensitivity)
+        
+        # Rotate the camera vertically, with limits
+        camera_x_rotation += -event.relative.y * mouse_sensitivity
+        camera_x_rotation = clamp(camera_x_rotation, deg_to_rad(-vertical_angle_limit), deg_to_rad(vertical_angle_limit))
+        head.rotation.x = camera_x_rotation
+    
+    # Toggle mouse capture with Escape key
+    if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+        if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+        else:
+            Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func can_stand_up():
+    # Cast a ray upward to check for obstacles
+    var space_state = get_world_3d().direct_space_state
+    
+    # Create parameters for raycast
+    var params = PhysicsRayQueryParameters3D.new()
+    params.from = global_position
+    params.to = global_position + Vector3(0, stand_height - crouch_height, 0)
+    params.exclude = [self]  # Don't hit self
+    
+    # Perform raycast
+    var result = space_state.intersect_ray(params)
+    
+    # Return true if nothing was hit (can stand up)
+    return result.is_empty()
+
+func _physics_process(delta):
+    # Add gravity when in air
+    if not is_on_floor():
+        velocity.y -= gravity * delta
+    
+    # Handle jump
+    if Input.is_action_just_pressed("jump") and is_on_floor() and not is_crouching:
+        velocity.y = jump_strength
+    
+    # Handle sprinting
+    var sprint_factor = 1.0
+    if Input.is_action_pressed("sprint") and is_on_floor() and not is_crouching:
+        sprint_factor = sprint_speed_multiplier
+    
+    # Handle crouching
+    var crouch_factor = 1.0
+    if Input.is_action_pressed("crouch"):
+        is_crouching = true
+        crouch_factor = crouch_speed_multiplier
+    else:
+        # Only allow standing up if there's space
+        if is_crouching and can_stand_up():
+            is_crouching = false
+    
+    # Apply current speed factor
+    current_speed = speed * sprint_factor * crouch_factor
+    
+    # Adjust collision shape height for crouching
+    var target_height = crouch_height if is_crouching else stand_height
+    
+    # Smoothly adjust collision shape
+    if collision_shape.shape is CapsuleShape3D:
+        collision_shape.shape.height = lerp(collision_shape.shape.height, target_height, delta * crouch_transition_speed)
+    
+    # Get movement input direction
+    var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+    
+    # Transform input direction based on camera orientation
+    var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+    
+    # Calculate target velocity
+    var target_velocity = direction * current_speed
+    
+    # Apply acceleration or deceleration
+    var accel = acceleration if direction else deceleration
+    
+    # Interpolate velocity for smooth acceleration/deceleration
+    velocity.x = move_toward(velocity.x, target_velocity.x, accel * delta)
+    velocity.z = move_toward(velocity.z, target_velocity.z, accel * delta)
+    
+    # Apply movement
+    move_and_slide()
+    
+    # Handle head bobbing
+    var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
+    
+    if is_on_floor() and horizontal_velocity > 0.1:
+        # Adjust bob frequency based on sprint
+        var current_bob_frequency = bob_frequency
+        if sprint_factor > 1.0:
+            current_bob_frequency *= 1.5
+        
+        # Increment bob timer
+        bob_time += delta * current_bob_frequency * (horizontal_velocity / current_speed)
+        
+        # Apply bobbing effect
+        var bob_vertical = sin(bob_time * PI) * bob_amplitude
+        var bob_horizontal = cos(bob_time * PI * 2) * bob_amplitude * bob_horizontal_factor
+        
+        # Apply bobbing to head position, but keep the crouch offset
+        var target_y = original_head_y
+        if is_crouching:
+            target_y = original_head_y - (stand_height - crouch_height) / 2.0
+            
+        head.position.y = target_y + bob_vertical
+        head.position.x = bob_horizontal
+    else:
+        # Smoothly return to original position when not moving
+        bob_time = 0.0
+        
+        var target_y = original_head_y
+        if is_crouching:
+            target_y = original_head_y - (stand_height - crouch_height) / 2.0
+            
+        head.position.y = lerp(head.position.y, target_y, delta * 5.0)
+        head.position.x = lerp(head.position.x, 0.0, delta * 5.0)
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Best Practices and Optimization</h2>
+                    
+                    <h3>Performance Considerations</h3>
+                    <ul>
+                        <li><strong>Physics Optimization</strong> - Use simple collision shapes like capsules for the player</li>
+                        <li><strong>Ray Casting</strong> - Limit the frequency of raycasts for operations like ground checks</li>
+                        <li><strong>Camera Effects</strong> - Simplify or disable effects like head bobbing on lower-end devices</li>
+                    </ul>
+                    
+                    <h3>Movement Feel</h3>
+                    <p>Fine-tune these parameters to adjust the feel of your movement:</p>
+                    <ul>
+                        <li><strong>Acceleration/Deceleration</strong> - Higher values create more responsive but less realistic movement</li>
+                        <li><strong>Speed</strong> - Should be balanced with your world scale</li>
+                        <li><strong>Jump Height</strong> - Depends on your level design and gameplay style</li>
+                    </ul>
+                    
+                    <h3>Common Issues and Solutions</h3>
+                    <div class="warning-box">
+                        <p><strong>Getting Stuck on Steps:</strong> Add a step offset to your CharacterBody3D or use a convex shape for stairs.</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <p><strong>Jittery Camera:</strong> Make sure to apply all camera effects in _physics_process for consistency. If using lerp for smoothing, ensure delta time is applied correctly.</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <p><strong>Motion Sickness:</strong> Some players are sensitive to head bobbing, FOV changes, or camera rotation. Make these optional in your settings.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Additional Features to Consider</h2>
+                    
+                    <h3>Footstep Sounds</h3>
+                    <p>Sync audio with your head bobbing cycle for realistic footsteps:</p>
+                    
+                    <div class="code-block">
+# Add to your character script
+@onready var footstep_player = $FootstepAudioPlayer
+var last_step_pos = 0.0
+
+func _physics_process(delta):
+    # ... existing head bob code ...
+    
+    # Play footstep sounds in sync with head bob
+    if is_on_floor() and horizontal_velocity > 0.1:
+        # Detect when the bob cycle passes the midpoint
+        if bob_time > last_step_pos + 0.5:
+            footstep_player.play()
+            last_step_pos = floor(bob_time)
+                    </div>
+                    
+                    <h3>Leaning</h3>
+                    <p>Add the ability to lean left or right for tactical gameplay:</p>
+                    
+                    <div class="code-block">
+# Add to your character script
+@export var lean_angle = 15.0  # In degrees
+@export var lean_transition_speed = 8.0
+var current_lean = 0.0
+
+func _physics_process(delta):
+    # ... existing code ...
+    
+    # Handle leaning
+    var target_lean = 0.0
+    if Input.is_action_pressed("lean_left"):
+        target_lean = deg_to_rad(lean_angle)
+    elif Input.is_action_pressed("lean_right"):
+        target_lean = deg_to_rad(-lean_angle)
+    
+    # Smoothly transition to target lean
+    current_lean = lerp(current_lean, target_lean, delta * lean_transition_speed)
+    
+    # Apply lean to camera
+    camera.rotation.z = current_lean
+                    </div>
+                    
+                    <h3>FOV Changes</h3>
+                    <p>Dynamically adjust FOV based on movement speed for a sense of speed:</p>
+                    
+                    <div class="code-block">
+# Add to your character script
+@export var base_fov = 75.0
+@export var sprint_fov_multiplier = 1.1
+@export var fov_transition_speed = 5.0
+
+func _physics_process(delta):
+    # ... existing code ...
+    
+    # Adjust FOV based on speed
+    var target_fov = base_fov
+    if sprint_factor > 1.0 and horizontal_velocity > 0.1:
+        target_fov = base_fov * sprint_fov_multiplier
+    
+    # Smoothly transition FOV
+    camera.fov = lerp(
+

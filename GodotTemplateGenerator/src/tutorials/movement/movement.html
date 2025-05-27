@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Movement Overview - Godot Template Generator</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-content {
+            background-color: var(--background-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumbs a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumbs i {
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tutorial-content h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content ul, .tutorial-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .tutorial-content li {
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #2a2a2a;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+        
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tutorial-nav a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+        
+        .tutorial-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tutorial-nav a i {
+            margin: 0 8px;
+        }
+        
+        .tutorial-section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../../assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#tutorials" class="active">Tutorials</a></li>
+                    <li><a href="../../index.html#generator">AI Generator</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="tutorials">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="../../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../../index.html#tutorials">Tutorials</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Character Movement Overview</span>
+            </div>
+            
+            <div class="section-header">
+                <h2>Character Movement in Godot</h2>
+                <p>An overview of different movement systems and when to use them</p>
+            </div>
+            
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h2>Introduction to Character Movement</h2>
+                    <p>Character movement is one of the fundamental aspects of game development. How your character moves affects the feel of your game and is often the primary way players interact with your world. In Godot, there are several approaches to implementing character movement, each suited to different game types.</p>
+                    
+                    <p>This guide provides an overview of different movement systems available in Godot and helps you choose the right one for your project.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Types of Movement Systems</h2>
+                    
+                    <h3>2D Platform Movement</h3>
+                    <p>Used in side-scrolling platformers like Super Mario, Hollow Knight, or Celeste. Characterized by:</p>
+                    <ul>
+                        <li>Horizontal movement along a 2D plane</li>
+                        <li>Jumping and gravity mechanics</li>
+                        <li>Often involves collision with platforms and obstacles</li>
+                    </ul>
+                    <p><a href="2d-platform-movement.html">Learn more about 2D Platform Movement →</a></p>
+                    
+                    <h3>Top-down Movement</h3>
+                    <p>Used in games with a bird's-eye view like The Legend of Zelda, Hotline Miami, or Enter the Gungeon. Features:</p>
+                    <ul>
+                        <li>Movement in four or eight directions</li>
+                        <li>Usually no gravity involved</li>
+                        <li>Often includes collision with walls and objects</li>
+                    </ul>
+                    <p><a href="topdown-movement.html">Learn more about Top-down Movement →</a></p>
+                    
+                    <h3>First-person Movement</h3>
+                    <p>Used in FPS games, walking simulators, and VR experiences. Characteristics include:</p>
+                    <ul>
+                        <li>Camera control for looking around</li>
+                        <li>WASD-style movement relative to camera direction</li>
+                        <li>Often includes features like jumping, crouching, and sprinting</li>
+                    </ul>
+                    <p><a href="first-person-movement.html">Learn more about First-person Movement →</a></p>
+                    
+                    <h3>Point-and-click Movement</h3>
+                    <p>Used in adventure games, RTS games, and some RPGs. Key features:</p>
+                    <ul>
+                        <li>Character moves to where the player clicks</li>
+                        <li>Often involves pathfinding around obstacles</li>
+                        <li>May include interaction with objects upon arrival</li>
+                    </ul>
+                    <p><a href="point-and-click-movement.html">Learn more about Point-and-click Movement →</a></p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Choosing the Right Movement System</h2>
+                    <p>When selecting a movement system for your game, consider:</p>
+                    
+                    <h3>Game Perspective</h3>
+                    <p>The camera perspective (side view, top-down, first-person) will greatly influence your movement system choice.</p>
+                    
+                    <h3>Game Feel</h3>
+                    <p>Different movement systems create different feelings - platformers often feel bouncy and precise, while top-down games can feel fluid and responsive.</p>
+                    
+                    <h3>Control Scheme</h3>
+                    <p>Consider your target platform and what input methods (keyboard/mouse, controller, touch) will be primary for your game.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Basic Movement Components in Godot</h2>
+                    <p>Regardless of the movement system you choose, these components will be useful:</p>
+                    
+                    <h3>Input Handling</h3>
+                    <div class="code-block">
+func _process(delta):
+    # Basic input handling
+    var direction = Vector2.ZERO
+    if Input.is_action_pressed("ui_right"):
+        direction.x += 1
+    if Input.is_action_pressed("ui_left"):
+        direction.x -= 1
+    if Input.is_action_pressed("ui_down"):
+        direction.y += 1
+    if Input.is_action_pressed("ui_up"):
+        direction.y -= 1
+        
+    # Normalize to prevent faster diagonal movement
+    direction = direction.normalized()
+                    </div>
+                    
+                    <h3>Applying Movement</h3>
+                    <div class="code-block">
+func _physics_process(delta):
+    # Apply movement
+    velocity = direction * speed
+    velocity = move_and_slide(velocity)
+                    </div>
+                </div>
+                
+                <div class="tutorial-nav">
+                    <span></span> <!-- Empty span for flex spacing -->
+                    <a href="2d-platform-movement.html">Next: 2D Platform Movement <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Godot Template Generator</h2>
+                    <p>Making game development accessible</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="../../index.html#tutorials">Tutorials</a></li>
+                        <li><a href="../../index.html#generator">AI Generator</a></li>
+                        <li><a href="../../index.html#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://godotengine.org/" target="_blank">Godot Engine</a></li>
+                        <li><a href="https://docs.godotengine.org/" target="_blank">Godot Documentation</a></li>
+                        <li><a href="https://github.com/" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Godot Template Generator. All code examples are provided under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../scripts/main.js"></script>
+</body>
+</html>
+

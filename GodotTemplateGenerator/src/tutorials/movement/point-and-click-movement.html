@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point-and-click Movement - Godot Template Generator</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-content {
+            background-color: var(--background-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumbs a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumbs i {
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tutorial-content h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content ul, .tutorial-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .tutorial-content li {
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #2a2a2a;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+        
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tutorial-nav a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+        
+        .tutorial-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tutorial-nav a i {
+            margin: 0 8px;
+        }
+        
+        .tutorial-section {
+            margin-bottom: 40px;
+        }
+        
+        .note-box {
+            background-color: rgba(71, 140, 191, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .image-container .caption {
+            margin-top: 10px;
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../../assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#tutorials" class="active">Tutorials</a></li>
+                    <li><a href="../../index.html#generator">AI Generator</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="tutorials">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="../../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../../index.html#tutorials">Tutorials</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="movement.html">Character Movement</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Point-and-click Movement</span>
+            </div>
+            
+            <div class="section-header">
+                <h2>Point-and-click Movement in Godot</h2>
+                <p>Implementing intuitive mouse-driven navigation systems</p>
+            </div>
+            
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h2>Introduction to Point-and-click Movement</h2>
+                    <p>Point-and-click movement is a control scheme where players click on a location in the game world, and their character navigates to that position. This style of movement is popular in:</p>
+                    
+                    <ul>
+                        <li><strong>Adventure games</strong> like Monkey Island or Broken Sword</li>
+                        <li><strong>RPGs</strong> like Diablo, Baldur's Gate, or Pillars of Eternity</li>
+                        <li><strong>RTS games</strong> like StarCraft or Age of Empires</li>
+                        <li><strong>MOBAs</strong> like League of Legends or Dota 2</li>
+                    </ul>
+                    
+                    <p>In this tutorial, we'll explore different approaches to implementing point-and-click movement in Godot, from simple direct movement to advanced pathfinding systems.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Setting Up Your Project</h2>
+                    
+                    <h3>Node Structure</h3>
+                    <p>A typical character setup for point-and-click movement includes:</p>
+                    <ul>
+                        <li><strong>CharacterBody2D</strong> - The main player node</li>
+                        <li>└─ <strong>CollisionShape2D</strong> - The player's collision shape</li>
+                        <li>└─ <strong>Sprite2D</strong> - The player's visual representation</li>
+                        <li>└─ <strong>NavigationAgent2D</strong> - For pathfinding (when using NavigationServer)</li>
+                    </ul>
+                    
+                    <h3>World Setup</h3>
+                    <p>For navigation to work properly, you'll need:</p>
+                    <ol>
+                        <li><strong>NavigationRegion2D</strong> - A node that defines the navigable area</li>
+                        <li>A navigation mesh - Generated from your tilemap or custom polygons</li>
+                        <li>Obstacles - Objects with collision that navigation should avoid</li>
+                    </ol>
+                    
+                    <div class="note-box">
+                        <p><strong>Note:</strong> In Godot 4.x, the navigation system has been significantly improved. This tutorial focuses on the Godot 4.x approach, but most concepts apply to Godot 3.x as well with some API differences.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Basic Click-to-Move Functionality</h2>
+                    <p>Let's start with a simple implementation where the character moves directly to the clicked position:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+@export var speed = 200.0
+@export var arrival_distance = 5.0
+@export var rotation_speed = 5.0
+
+var target_position = null
+var facing_direction = Vector2.RIGHT
+
+func _input(event):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        # Set the clicked position as the target
+        target_position = get_global_mouse_position()
+
+func _physics_process(delta):
+    if target_position:
+        # Calculate distance to target
+        var distance = global_position.distance_to(target_position)
+        
+        if distance > arrival_distance:
+            # Calculate direction to target
+            var direction = global_position.direction_to(target_position)
+            
+            # Set velocity towards target
+            velocity = direction * speed
+            
+            # Smooth rotation to face movement direction
+            if direction.length() > 0:
+                facing_direction = direction
+                
+                # Calculate the angle in radians
+                var target_angle = direction.angle()
+                
+                # Get the current rotation
+                var current_angle = rotation
+                
+                # Smoothly rotate towards the target angle
+                rotation = lerp_angle(current_angle, target_angle, rotation_speed * delta)
+                
+            # Move the character
+            move_and_slide()
+        else:
+            # Character has reached the target
+            velocity = Vector2.ZERO
+            target_position = null
+                    </div>
+                    
+                    <p>This implementation works well for simple environments without obstacles. The character will move directly towards the clicked position and stop when it reaches it.</p>
+                    
+                    <h3>Adding Visual Feedback</h3>
+                    <p>It's important to provide visual feedback when the player clicks to move:</p>
+                    
+                    <div class="code-block">
+# Add to the CharacterBody2D script
+
+@onready var click_marker = $ClickMarker  # A simple sprite or animation to show where the player clicked
+
+func _input(event):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        target_position = get_global_mouse_position()
+        
+        # Show marker at click position
+        click_marker.global_position = target_position
+        click_marker.visible = true
+        
+        # Optional: Play an animation
+        if click_marker.has_node("AnimationPlayer"):
+            click_marker.get_node("AnimationPlayer").play("pulse")
+
+func _physics_process(delta):
+    # ... existing movement code ...
+    
+    if target_position == null:
+        # Hide marker when target is reached
+        click_marker.visible = false
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Navigation with Pathfinding</h2>
+                    <p>In more complex environments with obstacles, direct movement isn't enough. We need pathfinding to navigate around obstacles:</p>
+                    
+                    <h3>Setting Up Navigation</h3>
+                    <p>First, ensure your scene has the necessary navigation components:</p>
+                    <ol>
+                        <li>Add a <code>NavigationRegion2D</code> node to your scene</li>
+                        <li>Create a navigation polygon that covers the walkable areas</li>
+                        <li>Add a <code>NavigationAgent2D</code> as a child of your character</li>
+                    </ol>
+                    
+                    <h3>Implementing Pathfinding</h3>
+                    <p>Now, let's update our script to use the navigation system:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+@export var speed = 200.0
+@export var arrival_distance = 5.0
+@export var rotation_speed = 5.0
+
+@onready var nav_agent = $NavigationAgent2D
+@onready var click_marker = $ClickMarker
+
+func _ready():
+    # Configure the NavigationAgent
+    nav_agent.path_desired_distance = arrival_distance
+    nav_agent.target_desired_distance = arrival_distance
+    
+    # Connect to navigation signals
+    nav_agent.velocity_computed.connect(_on_velocity_computed)
+    nav_agent.navigation_finished.connect(_on_navigation_finished)
+
+func _input(event):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        # Get the clicked position
+        var click_position = get_global_mouse_position()
+        
+        # Set the target position for navigation
+        nav_agent.target_position = click_position
+        
+        # Show marker at click position
+        click_marker.global_position = click_position
+        click_marker.visible = true
+
+func _physics_process(delta):
+    if nav_agent.is_navigation_finished():
+        return
+    
+    # Get the next path position
+    var next_path_position = nav_agent.get_next_path_position()
+    
+    # Calculate direction to the next path position
+    var direction = global_position.direction_to(next_path_position)
+    
+    # Set velocity
+    var target_velocity = direction * speed
+    
+    # Smooth rotation to face movement direction
+    if direction.length() > 0:
+        var target_angle = direction.angle()
+        rotation = lerp_angle(rotation, target_angle, rotation_speed * delta)
+    
+    # Let the NavigationAgent handle velocity and movement
+    nav_agent.velocity = target_velocity
+
+# Called when the NavigationAgent computes a velocity
+func _on_velocity_computed(safe_velocity):
+    velocity = safe_velocity
+    move_and_slide()
+
+# Called when navigation is finished
+func _on_navigation_finished():
+    velocity = Vector2.ZERO
+    click_marker.visible = false
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>Note:</strong> The <code>NavigationAgent2D</code> automatically calculates a path around obstacles. If your character still gets stuck, check that your navigation mesh is properly set up and that there are no gaps or unreachable areas.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Path Visualization</h2>
+                    <p>Visualizing the path can help players understand where their character will move and is essential for debugging:</p>
+                    
+                    <div class="code-block">
+# Add to your CharacterBody2D
+
+@onready var path_line = $PathLine  # A Line2D node for visualizing the path
+
+func _ready():
+    # ... existing code ...
+    
+    # Configure the Line2D for path visualization
+    path_line.width = 2.0
+    path_line.default_color = Color(1, 1, 1, 0.5)  # Semi-transparent white
+
+func _input(event):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        # ... existing code ...
+        
+        # Visualize the path
+        call_deferred("update_path_visualization")
+
+# Update the path visualization after the navigation path is calculated
+func update_path_visualization():
+    # Clear the current path
+    path_line.clear_points()
+    
+    # Get the path from the NavigationAgent
+    var path_array = nav_agent.get_current_navigation_path()
+    
+    # Add each point to the Line2D
+    for point in path_array:
+        path_line.add_point(point - global_position)  # Convert to local coordinates
+
+func _physics_process(delta):
+    # ... existing code ...
+    
+    # Update the path line's position
+    path_line.global_position = global_position
+
+# In the _on_navigation_finished function, add:
+func _on_navigation_finished():
+    # ... existing code ...
+    
+    # Clear the path visualization
+    path_line.clear_points()
+                    </div>
+                    
+                    <p>This code visualizes the path as a line from the character to the destination. You can customize the appearance by changing the width, color, and adding textures or gradients to the Line2D.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Interaction with Clickable Objects</h2>
+                    <p>In many point-and-click games, players can click on objects to interact with them. Let's implement a system for this:</p>
+                    
+                    <h3>Creating an Interactive Object</h3>
+                    <p>First, let's create a basic interactive object class:</p>
+                    
+                    <div class="code-block">
+# InteractiveObject.gd
+extends Area2D
+
+signal interaction_requested(object)
+
+@export var interaction_point: Marker2D  # A position where the character should stand to interact
+@export var interaction_distance = 50.0  # How close the character needs to be to interact
+@export var object_name = "Object"  # Display name for the object
+
+func _ready():
+    # Connect to the input event signal
+    input_event.connect(_on_input_event)
+    
+    # If no interaction point is set, create one at the bottom of the object
+    if interaction_point == null:
+        interaction_point = Marker2D.new()
+        add_child(interaction_point)
+        interaction_point.position = Vector2(0, $CollisionShape2D.shape.extents.y)
+
+func _on_input_event(_viewport, event, _shape_idx):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        # Emit signal when clicked
+        interaction_requested.emit(self)
+
+# Return the position where the character should stand to interact
+func get_interaction_position():
+    return interaction_point.global_position
+
+# Method to be overridden by specific interactive objects
+func interact():
+    print("Interacting with: " + object_name)
+                    </div>
+                    
+                    <h3>Handling Interactions in the Player Script</h3>
+                    <p>Now, let's modify our player script to handle interactions:</p>
+                    
+                    <div class="code-block">
+# Add to your CharacterBody2D
+
+var current_interactive_object = null
+
+func _ready():
+    # ... existing code ...
+    
+    # Get all interactive objects and connect to their signals
+    for object in get_tree().get_nodes_in_group("interactive_objects"):
+        object.interaction_requested.connect(_on_interaction_requested)
+
+func _on_interaction_requested(object):
+    # Store the object for interaction
+    current_interactive_object = object
+    
+    # Move to the interaction position
+    nav_agent.target_position = object.get_interaction_position()
+    
+    # Show marker
+    click_marker.global_position = object.get_interaction_position()
+    click_marker.visible = true
+    
+    # Update path visualization
+    call_deferred("update_path_visualization")
+
+func _physics_process(delta):
+    # ... existing navigation code ...
+    
+    # Check if we've reached an interactive object
+    if current_interactive_object and nav_agent.is_navigation_finished():
+        # Check if we're close enough to interact
+        var distance = global_position.distance_to(current_interactive_object.global_position)
+        if distance <= current_interactive_object.interaction_distance:
+            # Interact with the object
+            current_interactive_object.interact()
+            current_interactive_object = null
+                    </div>
+                    
+                    <h3>Example Interaction</h3>
+                    <p>Here's how you might implement a specific interactive object:</p>
+                    
+                    <div class="code-block">
+# Door.gd - extends InteractiveObject
+extends "res://interactive_object.gd"
+
+@export var is_locked = false
+@export var key_required = ""
+
+@onready var animation_player = $AnimationPlayer
+
+func interact():
+    if is_locked:
+        if key_required != "" and PlayerInventory.has_item(key_required):
+            unlock()
+        else:
+            print("This door is locked.")
+    else:
+        open()
+
+func unlock():
+    is_locked = false
+    print("You unlocked the door with the " + key_required)
+    open()
+
+func open():
+    animation_player.play("open")
+    # Additional logic for what happens when the door opens
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Advanced Pathfinding Techniques</h2>
+                    
+                    <h3>Dynamically Updating Navigation Mesh</h3>
+                    <p>Sometimes you need to update the navigation mesh at runtime, such as when doors open or obstacles move:</p>
+                    
+                    <div class="code-block">
+# Add to a script that manages a door or moving obstacle
+
+@export var navigation_region: NavigationRegion2D
+
+func open_door():
+    # Update the navigation mesh to allow passage
+    var new_navigation_polygon = NavigationPolygon.new()
+    
+    # Define the walkable area including the now-open door
+    # This is a simplified example - in practice, you would update the existing polygon
+    var vertices = [Vector2(0, 0), Vector2(100, 0), Vector2(100, 100), Vector2(0, 100)]
+    new_navigation_polygon.add_outline(vertices)
+    new_navigation_polygon.make_polygons_from_outlines()
+    
+    # Apply the updated navigation polygon
+    navigation_region.navigation_polygon = new_navigation_polygon
+    
+    # In Godot 4, you need to bake the navigation mesh after modifying it
+    navigation_region.bake_navigation_polygon()
+                    </div>
+                    
+                    <h3>Handling Moving Obstacles</h3>
+                    <p>For obstacles that move frequently, consider using avoidance instead of constantly updating the navigation mesh:</p>
+                    
+                    <div class="code-block">
+# In your CharacterBody2D
+
+@export var avoidance_enabled = true
+
+func _ready():
+    # ... existing code ...
+    
+    # Configure avoidance
+    nav_agent.avoidance_enabled = avoidance_enabled
+    nav_agent.radius = $CollisionShape2D.shape.radius  # Assuming a circular collision shape
+    nav_agent.max_speed = speed
+                    </div>
+                    
+                    <h3>Performance Optimization</h3>
+                    <p>Pathfinding can be computationally expensive. Here are some tips to optimize performance:</p>
+                    
+                    <ul>
+                        <li><strong>Limit path recalculation</strong> - Don't update paths every frame</li>
+                        <li><strong>Adjust path detail</strong> - Use simpler paths for distant objects</li>
+                        <li><strong>Use region-based navigation</strong> - Split large worlds into navigation regions</li>
+                    </ul>
+                    
+                    <div class="code-block">
+# Example of limiting path recalculation
+
+var path_update_timer = 0.0
+@export var path_update_interval = 0.5  # Update path every 0.5 seconds
+
+func _physics_process(delta):
+    # Update path periodically instead of every frame
+    path_update_timer += delta
+    if path_update_timer >= path_update_interval:
+        path_update_timer = 0.0
+        if current_target_position:
+            nav_agent.target_position = current_target_position
+            call_deferred("update_path_visualization")
+    
+    # ... rest of movement code ...
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Complete Point-and-click Controller</h2>
+                    <p>Here's a complete script that combines all the features we've discussed:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+# Movement and navigation parameters
+@export var speed = 200.0
+@export var arrival_distance = 5.0
+@export var rotation_speed = 5.0
+@export var avoidance_enabled = true
+@export var path_update_interval = 0.5
+
+# Node references
+@onready var nav_agent = $NavigationAgent2D
+@onready var click_marker = $ClickMarker
+@onready var path_line = $PathLine
+@onready var animation_player = $AnimationPlayer
+@onready var sprite = $Sprite2D
+
+# State variables
+var current_target_position = null
+var current_interactive_object = null
+var path_update_timer = 0.0
+var is_moving = false
+
+func _ready():
+    # Configure the NavigationAgent
+    nav_agent.path_desired_distance = arrival_distance
+    nav_agent.target_desired_distance = arrival_distance
+    nav_agent.avoidance_enabled = avoidance_enabled
+    
+    # Configure avoidance
+    if $CollisionShape2D.shape is CircleShape2D:
+        nav_agent.radius = $CollisionShape2D.shape.radius
+    nav_agent.max_speed = speed
+    
+    # Configure the path visualization
+    path_line.width = 2.0
+    path_line.default_color = Color(1, 1, 1, 0.5)
+    
+    # Connect signals
+    nav_agent.velocity_computed.connect(_on_velocity_computed)
+    nav_agent.navigation_finished.connect(_on_navigation_finished)
+    
+    # Connect to interactive objects
+    for object in get_tree().get_nodes_in_group("interactive_objects"):
+        object.interaction_requested.connect(_on_interaction_requested)
+
+func _input(event):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        # Only handle clicks that aren't on interactive objects
+        # The interactive objects will handle their own clicks
+        if not current_interactive_object:
+            set_movement_target(get_global_mouse_position())
+
+func set_movement_target(target_pos):
+    current_target_position = target_pos
+    nav_agent.target_position = target_pos
+    
+    # Show marker at click position
+    click_marker.global_position = target_pos
+    click_marker.visible = true
+    
+    # Update path visualization
+    call_deferred("update_path_visualization")
+    
+    # Set moving state
+    is_moving = true
+    
+    # Play walking animation if available
+    if animation_player and animation_player.has_animation("walk"):
+        animation_player.play("walk")
+
+func update_path_visualization():
+    # Clear the current path
+    path_line.clear_points()
+    
+    # Get the path from the NavigationAgent
+    var path_array = nav_agent.get_current_navigation_path()
+    
+    # Add each point to the Line2D
+    for point in path_array:
+        path_line.add_point(to_local(point))  # Convert to local coordinates
+
+func _physics_process(delta):
+    # Update path periodically
+    if current_target_position and is_moving:
+        path_update_timer += delta
+        if path_update_timer >= path_update_interval:
+            path_update_timer = 0.0
+            nav_agent.target_position = current_target_position
+            call_deferred("update_path_visualization")
+    
+    if nav_agent.is_navigation_finished():
+        if is_moving:
+            stop_movement()
+        return
+    
+    # Get the next path position
+    var next_path_position = nav_agent.get_next_path_position()
+    
+    # Calculate direction to the next path position
+    var direction = global_position.direction_to(next_path_position)
+    
+    # Set velocity
+    var target_velocity = direction * speed
+    
+    # Smooth rotation to face movement direction
+    if direction.length() > 0:
+        var target_angle = direction.angle()
+        
+        # Rotate the character
+        rotation = lerp_angle(rotation, target_angle, rotation_speed * delta)
+        
+        # Alternative: Flip sprite instead of rotating (for 2D sprites)
+        # if direction.x < 0:
+        #     sprite.flip_h = true
+        # else:
+        #     sprite.flip_h = false
+    
+    # Let the NavigationAgent handle velocity and movement
+    nav_agent.velocity = target_velocity
+
+func stop_movement():
+    is_moving = false
+    velocity = Vector2.ZERO
+    
+    # Play idle animation if available
+    if animation_player and animation_player.has_animation("idle"):
+        animation_player.play("idle")
+    
+    # Hide the click marker
+    click_marker.visible = false
+    
+    # Clear the path visualization
+    path_line.clear_points()
+    
+    # Check if we've reached an interactive object
+    if current_interactive_object:
+        var distance = global_position.distance_to(current_interactive_object.global_position)
+        if distance <= current_interactive_object.interaction_distance:
+            # Face the object
+            var direction = global_position.direction_to(current_interactive_object.global_position)
+            rotation = direction.angle()
+            
+            # Interact with the object
+            current_interactive_object.interact()
+            current_interactive_object = null
+
+func _on_velocity_computed(safe_velocity):
+    velocity = safe_velocity
+    move_and_slide()
+
+func _on_navigation_finished():
+    stop_movement()
+
+func _on_interaction_requested(object):
+    # Store the object for interaction
+    current_interactive_object = object
+    
+    # Move to the interaction position
+    set_movement_target(object.get_interaction_position())
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Best Practices</h2>
+                    
+                    <h3>User Experience</h3>
+                    <ul>
+                        <li><strong>Provide clear feedback</strong> - Show where the player clicked and the path the character will take</li>
+                        <li><strong>Responsive controls</strong> - The character should start moving immediately when clicked</li>
+                        <li><strong>Interrupt movement</strong> - Allow players to change destination mid-path by clicking elsewhere</li>
+                        <li><strong>Highlight interactive objects</strong> - Use hover effects to show what can be clicked</li>
+                    </ul>
+                    
+                    <h3>Technical Considerations</h3>
+                    <ul>
+                        <li><strong>Optimize pathfinding</strong> - Only recalculate paths when necessary</li>
+                        
+

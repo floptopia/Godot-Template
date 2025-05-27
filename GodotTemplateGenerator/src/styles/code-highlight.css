@@ -1,0 +1,162 @@
+/* Code Highlighting Styles for GDScript */
+.code-block {
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 20px 20px 20px 60px; /* Extra padding on left for line numbers */
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    line-height: 1.5;
+    position: relative;
+    counter-reset: line;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-size: 0.95rem;
+    white-space: pre; /* Preserve line breaks and spaces */
+}
+
+.code-block code {
+    display: block;
+    position: relative;
+    font-family: inherit;
+}
+
+/* Each line of code */
+.code-line {
+    display: block;
+    counter-increment: line;
+    position: relative;
+    padding-left: 10px;
+    min-height: 1.5em; /* Ensure empty lines take space */
+}
+
+/* Line numbers */
+.code-line::before {
+    content: counter(line);
+    position: absolute;
+    left: -45px;
+    width: 30px;
+    color: #636d83;
+    text-align: right;
+    user-select: none;
+}
+/* Keyword highlighting */
+.code-keyword {
+    color: #c678dd; /* Purple */
+    font-weight: bold;
+}
+
+.code-builtin {
+    color: #e5c07b; /* Yellow */
+}
+
+.code-function {
+    color: #61afef; /* Blue */
+}
+
+.code-string {
+    color: #98c379; /* Green */
+}
+
+.code-number {
+    color: #d19a66; /* Orange */
+}
+
+.code-comment {
+    color: #5c6370; /* Gray */
+    font-style: italic;
+}
+
+.code-variable {
+    color: #e06c75; /* Red */
+}
+
+.code-property {
+    color: #56b6c2; /* Cyan */
+}
+
+.code-operator {
+    color: #56b6c2; /* Cyan */
+}
+
+.code-decorator {
+    color: #f8c555; /* Light orange */
+}
+
+/* Different background for examples */
+.code-example {
+    background-color: #2c313a;
+    border-left: 4px solid var(--primary-color);
+}
+
+/* Copy button */
+.code-copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    color: #abb2bf;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.code-block:hover .code-copy-btn {
+    opacity: 1;
+}
+
+.code-copy-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Highlighting for specific GDScript elements */
+.code-signal {
+    color: #c678dd; /* Purple */
+    font-style: italic;
+}
+
+.code-export {
+    color: #c678dd; /* Purple */
+    font-weight: bold;
+}
+
+.code-onready {
+    color: #c678dd; /* Purple */
+    font-weight: bold;
+}
+
+/* Line highlight for important lines */
+.code-highlight {
+    background-color: rgba(97, 175, 239, 0.1);
+    display: block;
+}
+
+/* For showing output/results */
+.code-output {
+    background-color: #21252b;
+    border-top: 1px dashed #4b5263;
+    color: #98c379;
+    padding: 10px 20px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    .code-block {
+        padding-left: 50px;
+        font-size: 0.85rem;
+    }
+    
+    .code-block code:before {
+        left: -35px;
+        width: 25px;
+    }
+}
+

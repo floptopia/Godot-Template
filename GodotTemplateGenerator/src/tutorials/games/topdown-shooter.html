@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top-down Shooter Tutorial - Godot Template Generator</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="../../styles/code-highlight.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-content {
+            background-color: var(--background-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumbs a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumbs i {
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tutorial-content h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content ul, .tutorial-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .tutorial-content li {
+            margin-bottom: 10px;
+        }
+        
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tutorial-nav a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+        
+        .tutorial-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tutorial-nav a i {
+            margin: 0 8px;
+        }
+        
+        .tutorial-section {
+            margin-bottom: 40px;
+        }
+        
+        .note-box {
+            background-color: rgba(71, 140, 191, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .image-container .caption {
+            margin-top: 10px;
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        .node-structure {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 20px;
+        }
+        
+        .node-parent {
+            margin-bottom: 5px;
+        }
+        
+        .node-child {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .node-nested {
+            margin-left: 40px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../../assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#tutorials" class="active">Tutorials</a></li>
+                    <li><a href="../../index.html#generator">AI Generator</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="tutorials">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="../../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../../index.html#tutorials">Tutorials</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Top-down Shooter</span>
+            </div>
+            
+            <div class="section-header">
+                <h2>Creating a Top-down Shooter in Godot</h2>
+                <p>A complete guide to implementing a top-down shooter game with player movement, enemies, and power-ups</p>
+            </div>
+            
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h2>Introduction</h2>
+                    <p>Top-down shooters are games viewed from above where the player navigates a character through a 2D environment, shooting at enemies and avoiding obstacles. Games like <em>Hotline Miami</em>, <em>Enter the Gungeon</em>, and <em>Nuclear Throne</em> are excellent examples of this genre.</p>
+                    
+                    <p>In this tutorial, we'll create a complete top-down shooter game in Godot, covering:</p>
+                    
+                    <ul>
+                        <li>Setting up the project and organizing scenes</li>
+                        <li>Implementing player movement and rotation</li>
+                        <li>Creating shooting mechanics and bullet behavior</li>
+                        <li>Programming enemy AI with pathfinding</li>
+                        <li>Building health and damage systems</li>
+                        <li>Adding power-ups and special abilities</li>
+                    </ul>
+                    
+                    <p>By the end, you'll have a fully functional top-down shooter that you can expand with your own ideas and mechanics.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Project Setup</h2>
+                    
+                    <h3>Creating a New Project</h3>
+                    <p>Let's start by creating a new Godot project:</p>
+                    <ol>
+                        <li>Open Godot Engine</li>
+                        <li>Click "New Project"</li>
+                        <li>Name it "TopDownShooter"</li>
+                        <li>Choose a directory location</li>
+                        <li>Select "2D Renderer"</li>
+                        <li>Click "Create & Edit"</li>
+                    </ol>
+                    
+                    <h3>Project Structure</h3>
+                    <p>Before we start coding, let's set up a clean project structure. Create the following folders in your project:</p>
+                    
+                    <ul>
+                        <li><strong>scenes</strong> - For game scenes</li>
+                        <li><strong>scripts</strong> - For GDScript files</li>
+                        <li><strong>assets</strong> - For sprites, sounds, etc.</li>
+                        <li><strong>resources</strong> - For resource files like animations</li>
+                    </ul>
+                    
+                    <h3>Setting Up the Main Scene</h3>
+                    <p>Now, let's create the main game scene:</p>
+                    <ol>
+                        <li>Create a new scene (Scene → New Scene)</li>
+                        <li>Select "Node2D" as the root node and name it "Game"</li>
+                        <li>Save it as "scenes/Game.tscn"</li>
+                    </ol>
+                    
+                    <p>Our main scene will have the following structure:</p>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">Game (Node2D)</div>
+                        <div class="node-child">Player (CharacterBody2D)</div>
+                        <div class="node-child">Enemies (Node2D)</div>
+                        <div class="node-child">Bullets (Node2D)</div>
+                        <div class="node-child">PowerUps (Node2D)</div>
+                        <div class="node-child">UI (CanvasLayer)</div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Player Controller</h2>
+                    
+                    <h3>Creating the Player Scene</h3>
+                    <p>Let's create a separate scene for our player:</p>
+                    <ol>
+                        <li>Create a new scene (Scene → New Scene)</li>
+                        <li>Select "CharacterBody2D" as the root node and name it "Player"</li>
+                        <li>Add a CollisionShape2D as a child and set it to a circle shape</li>
+                        <li>Add a Sprite2D for the player's appearance</li>
+                        <li>Add a Camera2D to follow the player</li>
+                        <li>Save it as "scenes/Player.tscn"</li>
+                    </ol>
+                    
+                    <p>The player scene should look like this:</p>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">Player (CharacterBody2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">Camera2D</div>
+                        <div class="node-child">GunPosition (Marker2D)</div>
+                        <div class="node-child">ShootCooldown (Timer)</div>
+                    </div>
+                    
+                    <h3>Player Movement and Rotation</h3>
+                    <p>Now let's implement the player movement script. Create a new script for the Player node:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<div class="code-line"><span class="code-keyword">extends</span> CharacterBody2D</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Movement parameters</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> speed: <span class="code-builtin">float</span> = <span class="code-number">200.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> acceleration: <span class="code-builtin">float</span> = <span class="code-number">1500.0</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> friction: <span class="code-builtin">float</span> = <span class="code-number">1000.0</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Shooting parameters</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> bullet_scene: PackedScene</div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> fire_rate: <span class="code-builtin">float</span> = <span class="code-number">0.25</span>  <span class="code-comment"># Time between shots in seconds</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Health parameters</span></div>
+<div class="code-line"><span class="code-export">@export</span> <span class="code-keyword">var</span> max_health: <span class="code-builtin">int</span> = <span class="code-number">100</span></div>
+<div class="code-line"><span class="code-keyword">var</span> current_health: <span class="code-builtin">int</span> = max_health</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-comment"># Node references</span></div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> gun_position = $GunPosition</div>
+<div class="code-line"><span class="code-onready">@onready</span> <span class="code-keyword">var</span> shoot_cooldown = $ShootCooldown</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-keyword">var</span> can_shoot = <span class="code-builtin">true</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _ready():</div>
+<div class="code-line">    <span class="code-comment"># Initialize the cooldown timer</span></div>
+<div class="code-line">    shoot_cooldown.wait_time = fire_rate</div>
+<div class="code-line">    shoot_cooldown.one_shot = <span class="code-builtin">true</span></div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Connect the timeout signal</span></div>
+<div class="code-line">    shoot_cooldown.timeout.connect(_on_shoot_cooldown_timeout)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _physics_process(delta):</div>
+<div class="code-line">    <span class="code-comment"># Get movement input</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> input_vector = <span class="code-builtin">Vector2</span>.ZERO</div>
+<div class="code-line">    input_vector.x = <span class="code-builtin">Input</span>.get_axis(<span class="code-string">"ui_left"</span>, <span class="code-string">"ui_right"</span>)</div>
+<div class="code-line">    input_vector.y = <span class="code-builtin">Input</span>.get_axis(<span class="code-string">"ui_up"</span>, <span class="code-string">"ui_down"</span>)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Normalize to prevent faster diagonal movement</span></div>
+<div class="code-line">    input_vector = input_vector.normalized()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Apply acceleration or friction</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> input_vector != <span class="code-builtin">Vector2</span>.ZERO:</div>
+<div class="code-line">        velocity = velocity.move_toward(input_vector * speed, acceleration * delta)</div>
+<div class="code-line">    <span class="code-keyword">else</span>:</div>
+<div class="code-line">        velocity = velocity.move_toward(<span class="code-builtin">Vector2</span>.ZERO, friction * delta)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Rotate player to face mouse cursor</span></div>
+<div class="code-line">    look_at(get_global_mouse_position())</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Move the player</span></div>
+<div class="code-line">    move_and_slide()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Handle shooting</span></div>
+<div class="code-line">    <span class="code-keyword">if</span> <span class="code-builtin">Input</span>.is_action_pressed(<span class="code-string">"shoot"</span>) <span class="code-keyword">and</span> can_shoot:</div>
+<div class="code-line">        shoot()</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> shoot():</div>
+<div class="code-line">    <span class="code-comment"># Start cooldown</span></div>
+<div class="code-line">    can_shoot = <span class="code-builtin">false</span></div>
+<div class="code-line">    shoot_cooldown.start()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Create bullet instance</span></div>
+<div class="code-line">    <span class="code-keyword">var</span> bullet = bullet_scene.instantiate()</div>
+<div class="code-line">    bullet.global_position = gun_position.global_position</div>
+<div class="code-line">    bullet.rotation = rotation</div>
+<div class="code-line">    bullet.direction = <span class="code-builtin">Vector2</span>.RIGHT.rotated(rotation)</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Add bullet to the scene</span></div>
+<div class="code-line">    get_parent().get_node(<span class="code-string">"Bullets"</span>).add_child(bullet)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> _on_shoot_cooldown_timeout():</div>
+<div class="code-line">    can_shoot = <span class="code-builtin">true</span></div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> take_damage(amount):</div>
+<div class="code-line">    current_health -= amount</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-keyword">if</span> current_health <= <span class="code-number">0</span>:</div>
+<div class="code-line">        die()</div>
+<div class="code-line">    </div>
+<div class="code-line">    <span class="code-comment"># Emit signal for UI updates</span></div>
+<div class="code-line">    <span class="code-signal">signal</span> health_changed(new_health)</div>
+<div class="code-line">    health_changed.emit(current_health)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> heal(amount):</div>
+<div class="code-line">    current_health = <span class="code-builtin">min</span>(current_health + amount, max_health)</div>
+<div class="code-line">    health_changed.emit(current_health)</div>
+<div class="code-line"></div>
+<div class="code-line"><span class="code-function">func</span> die():</div>
+<div class="code-line">    <span class="code-comment"># Handle player death</span></div>
+<div class="code-line">    <span class="code-builtin">print</span>(<span class="code-string">"Player died!"</span>)</div>
+<div class="code-line">    <span class="code-comment"># You might want to trigger a game over screen here</span></div>
+</code>
+                    </div>
+                    
+                    <p>In the script above, we've implemented basic movement similar to our <a href="../movement/topdown-movement.html">top-down movement</a> tutorial, but with additional shooting functionality. The player rotates to face the mouse cursor and can shoot bullets in that direction.</p>
+                    
+                    <h3>Setting Up Input Actions</h3>
+                    <p>Before testing, we need to define the input actions used in the script:</p>
+                    <ol>
+                        <li>Go to Project → Project Settings → Input Map</li>
+                        <li>Make sure "ui_left", "ui_right", "ui_up", and "ui_down" are already defined</li>
+                        <li>Add a new action called "shoot" and map it to the left mouse button</li>
+                    </ol>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Bullets and Shooting Mechanics</h2>
+                    
+                    <h3>Creating the Bullet Scene</h3>
+                    <p>Now let's create a scene for our bullets:</p>
+                    <ol>
+                        <li>Create a new scene with an Area2D as the root node and name it "Bullet"</li>
+                        <li>Add a CollisionShape2D child with a small circular shape</li>
+                        <li>Add a Sprite2D for the bullet's appearance</li>
+                        <li>Save it as "scenes/Bullet.tscn"</li>
+                    </ol>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">Bullet (Area2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">LifeTimer (Timer)</div>
+                    </div>
+                    
+                    <h3>Bullet Script</h3>
+                    <p>Add a script to the Bullet scene:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<span class="code-keyword">extends</span> Area2D
+
+<span class="code-export">@export</span> <span class="code-keyword">var</span> speed: <span class="code-builtin">float</span> = <span class="code-number">800.0</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> damage: <span class="code-builtin">int</span> = <span class="code-number">10</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> lifetime: <span class="code-builtin">float</span> = <span class="code-number">2.0</span>  <span class="code-comment"># Seconds before bullet disappears</span>
+
+<span class="code-keyword">var</span> direction = <span class="code-builtin">Vector2</span>.RIGHT
+
+<span class="code-function">func</span> _ready():
+    <span class="code-comment"># Set up the lifetime timer</span>
+    $LifeTimer.wait_time = lifetime
+    $LifeTimer.timeout.connect(_on_lifetime_timeout)
+    $LifeTimer.start()
+    
+    <span class="code-comment"># Connect the area entered signal</span>
+    area_entered.connect(_on_area_entered)
+    body_entered.connect(_on_body_entered)
+
+<span class="code-function">func</span> _physics_process(delta):
+    <span class="code-comment"># Move the bullet in its direction</span>
+    position += direction * speed * delta
+
+<span class="code-function">func</span> _on_lifetime_timeout():
+    <span class="code-comment"># Remove the bullet when its lifetime expires</span>
+    queue_free()
+
+<span class="code-function">func</span> _on_area_entered(area):
+    <span class="code-comment"># Check if the area is an enemy</span>
+    <span class="code-keyword">if</span> area.is_in_group(<span class="code-string">"enemies"</span>):
+        <span class="code-comment"># Deal damage to the enemy</span>
+        area.take_damage(damage)
+        
+        <span class="code-comment"># Remove the bullet</span>
+        queue_free()
+
+<span class="code-function">func</span> _on_body_entered(body):
+    <span class="code-comment"># Check if the body is a wall or obstacle</span>
+    <span class="code-keyword">if</span> body.is_in_group(<span class="code-string">"obstacles"</span>):
+        <span class="code-comment"># Remove the bullet when it hits a wall</span>
+        queue_free()
+</code>
+                    </div>
+                    
+                    <p>This script handles bullet movement, collision detection, and damage dealing. The bullet will move in the direction it was fired, damage enemies it hits, and be destroyed when it hits an obstacle or reaches its lifetime limit.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Enemy Implementation</h2>
+                    
+                    <h3>Creating the Enemy Scene</h3>
+                    <p>Let's create a basic enemy that will chase the player:</p>
+                    <ol>
+                        <li>Create a new scene with CharacterBody2D as the root node and name it "Enemy"</li>
+                        <li>Add a CollisionShape2D child with a circular shape</li>
+                        <li>Add a Sprite2D for the enemy's appearance</li>
+                        <li>Add a NavigationAgent2D for pathfinding</li>
+                        <li>Add the enemy to the "enemies" group</li>
+                        <li>Save it as "scenes/Enemy.tscn"</li>
+                    </ol>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">Enemy (CharacterBody2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">NavigationAgent2D</div>
+                        <div class="node-child">PathUpdateTimer (Timer)</div>
+                        <div class="node-child">AttackCooldown (Timer)</div>
+                    </div>
+                    
+                    <h3>Enemy Script</h3>
+                    <p>Let's implement the enemy behavior script:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<span class="code-keyword">extends</span> CharacterBody2D
+
+<span class="code-export">@export</span> <span class="code-keyword">var</span> speed: <span class="code-builtin">float</span> = <span class="code-number">150.0</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> health: <span class="code-builtin">int</span> = <span class="code-number">30</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> attack_damage: <span class="code-builtin">int</span> = <span class="code-number">10</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> attack_range: <span class="code-builtin">float</span> = <span class="code-number">50.0</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> path_update_interval: <span class="code-builtin">float</span> = <span class="code-number">0.5</span>
+
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> nav_agent = $NavigationAgent2D
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> path_update_timer = $PathUpdateTimer
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> attack_cooldown = $AttackCooldown
+
+<span class="code-keyword">var</span> player = <span class="code-builtin">null</span>
+
+<span class="code-function">func</span> _ready():
+    <span class="code-comment"># Add the enemy to the "enemies" group</span>
+    add_to_group(<span class="code-string">"enemies"</span>)
+    
+    <span class="code-comment"># Find the player node</span>
+    player = get_tree().get_first_node_in_group(<span class="code-string">"player"</span>)
+    
+    <span class="code-comment"># Set up the path update timer</span>
+    path_update_timer.wait_time = path_update_interval
+    path_update_timer.timeout.connect(_on_path_update_timeout)
+    path_update_timer.start()
+    
+    <span class="code-comment"># Set up attack cooldown</span>
+    attack_cooldown.wait_time = <span class="code-number">1.0</span>  <span class="code-comment"># 1 second between attacks</span>
+    attack_cooldown.one_shot = <span class="code-builtin">true</span>
+    attack_cooldown.timeout.connect(_on_attack_cooldown_timeout)
+    
+    <span class="code-comment"># Initial path calculation</span>
+    <span class="code-keyword">if</span> player:
+        update_path_to_player()
+
+<span class="code-function">func</span> _physics_process(delta):
+    <span class="code-comment"># If no player or player is dead, don't move</span>
+    <span class="code-keyword">if</span> !player <span class="code-keyword">or</span> !is_instance_valid(player):
+        player = get_tree().get_first_node_in_group(<span class="code-string">"player"</span>)
+        <span class="code-keyword">return</span>
+    
+    <span class="code-comment"># Check if we should attack the player</span>
+    <span class="code-keyword">var</span> distance_to_player = global_position.distance_to(player.global_position)
+    <span class="code-keyword">if</span> distance_to_player <= attack_range <span class="code-keyword">and</span> attack_cooldown.is_stopped():
+        attack_player()
+        <span class="code-keyword">return</span>
+    
+    <span class="code-comment"># If we're at the final destination, stop</span>
+    <span class="code-keyword">if</span> nav_agent.is_navigation_finished():
+        <span class="code-keyword">return</span>
+    
+    <span class="code-comment"># Get the next path position</span>
+    <span class="code-keyword">var</span> next_path_position = nav_agent.get_next_path_position()
+    
+    <span class="code-comment"># Calculate direction to the next path position</span>
+    <span class="code-keyword">var</span> direction = global_position.direction_to(next_path_position)
+    
+    <span class="code-comment"># Set velocity</span>
+    velocity = direction * speed
+    
+    <span class="code-comment"># Look at the direction we're moving</span>
+    <span class="code-keyword">if</span> velocity.length() > <span class="code-number">0</span>:
+        rotation = velocity.angle()
+    
+    <span class="code-comment"># Move the enemy</span>
+    move_and_slide()
+
+<span class="code-function">func</span> update_path_to_player():
+    <span class="code-keyword">if</span> player <span class="code-keyword">and</span> is_instance_valid(player):
+        nav_agent.target_position = player.global_position
+
+<span class="code-function">func</span> _on_path_update_timeout():
+    update_path_to_player()
+
+<span class="code-function">func</span> attack_player():
+    <span class="code-comment"># Start attack cooldown</span>
+    attack_cooldown.start()
+    
+    <span class="code-comment"># Deal damage to the player</span>
+    player.take_damage(attack_damage)
+    
+    <span class="code-comment"># Optional: play attack animation or sound</span>
+    <span class="code-builtin">print</span>(<span class="code-string">"Enemy attacked player for "</span> + <span class="code-builtin">str</span>(attack_damage) + <span class="code-string">" damage!"</span>)
+
+<span class="code-function">func</span> _on_attack_cooldown_timeout():
+    <span class="code-comment"># The enemy can attack again</span>
+    <span class="code-keyword">pass</span>
+
+<span class="code-function">func</span> take_damage(amount):
+    health -= amount
+    
+    <span class="code-comment"># Optional: play hit effect or animation</span>
+    <span class="code-comment"># $HitEffect.play()</span>
+    
+    <span class="code-keyword">if</span> health <= <span class="code-number">0</span>:
+        die()
+        
+    <span class="code-comment"># Optional: flash the sprite to indicate damage</span>
+    <span class="code-keyword">var</span> tween = create_tween()
+    tween.tween_property($Sprite2D, <span class="code-string">"modulate"</span>, <span class="code-builtin">Color</span>(<span class="code-number">1</span>, <span class="code-number">0</span>, <span class="code-number">0</span>), <span class="code-number">0.1</span>)
+    tween.tween_property($Sprite2D, <span class="code-string">"modulate"</span>, <span class="code-builtin">Color</span>(<span class="code-number">1</span>, <span class="code-number">1</span>, <span class="code-number">1</span>), <span class="code-number">0.1</span>)
+
+<span class="code-function">func</span> die():
+    <span class="code-comment"># Spawn death effect</span>
+    <span class="code-comment"># var death_effect = death_effect_scene.instantiate()</span>
+    <span class="code-comment"># death_effect.global_position = global_position</span>
+    <span class="code-comment"># get_parent().add_child(death_effect)</span>
+    
+    <span class="code-comment"># Chance to drop a power-up</span>
+    <span class="code-keyword">if</span> <span class="code-builtin">randf</span>() < <span class="code-number">0.3</span>:  <span class="code-comment"># 30% drop chance</span>
+        <span class="code-keyword">var</span> powerup_scene = load(<span class="code-string">"res://scenes/PowerUp.tscn"</span>)
+        <span class="code-keyword">var</span> powerup = powerup_scene.instantiate()
+        powerup.global_position = global_position
+        <span class="code-comment"># Randomly select a power-up type</span>
+        powerup.type = <span class="code-builtin">randi</span>() % powerup.PowerUpType.size()
+        get_parent().get_parent().get_node(<span class="code-string">"PowerUps"</span>).add_child(powerup)
+    
+    <span class="code-comment"># Remove the enemy</span>
+    queue_free()
+</code>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Power-Up System</h2>
+                    
+                    <h3>Creating the Power-Up Scene</h3>
+                    <p>Power-ups add variety and strategy to your game. Let's create a flexible power-up system:</p>
+                    <ol>
+                        <li>Create a new scene with Area2D as the root node and name it "PowerUp"</li>
+                        <li>Add a CollisionShape2D child with a circular shape</li>
+                        <li>Add a Sprite2D for the power-up's appearance</li>
+                        <li>Add an AnimationPlayer for visual effects</li>
+                        <li>Save it as "scenes/PowerUp.tscn"</li>
+                    </ol>
+                    
+                    <div class="node-structure">
+                        <div class="node-parent">PowerUp (Area2D)</div>
+                        <div class="node-child">CollisionShape2D</div>
+                        <div class="node-child">Sprite2D</div>
+                        <div class="node-child">AnimationPlayer</div>
+                        <div class="node-child">DurationTimer (Timer)</div>
+                    </div>
+                    
+                    <h3>Power-Up Script</h3>
+                    <p>Here's a script that handles different types of power-ups:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<span class="code-keyword">extends</span> Area2D
+
+<span class="code-comment"># Enumeration for power-up types</span>
+<span class="code-keyword">enum</span> PowerUpType {
+    HEALTH,
+    SPEED,
+    DAMAGE,
+    FIRE_RATE
+}
+
+<span class="code-export">@export</span> <span class="code-keyword">var</span> type: PowerUpType = PowerUpType.HEALTH
+<span class="code-export">@export</span> <span class="code-keyword">var</span> health_amount: <span class="code-builtin">int</span> = <span class="code-number">25</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> speed_multiplier: <span class="code-builtin">float</span> = <span class="code-number">1.5</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> damage_multiplier: <span class="code-builtin">float</span> = <span class="code-number">2.0</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> fire_rate_multiplier: <span class="code-builtin">float</span> = <span class="code-number">2.0</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> effect_duration: <span class="code-builtin">float</span> = <span class="code-number">10.0</span>  <span class="code-comment"># In seconds, for temporary effects</span>
+
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> sprite = $Sprite2D
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> animation_player = $AnimationPlayer
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> duration_timer = $DurationTimer
+
+<span class="code-keyword">var</span> collected = <span class="code-builtin">false</span>
+
+<span class="code-function">func</span> _ready():
+    <span class="code-comment"># Set up appearance based on type</span>
+    update_appearance()
+    
+    <span class="code-comment"># Play floating animation</span>
+    <span class="code-keyword">if</span> animation_player <span class="code-keyword">and</span> animation_player.has_animation(<span class="code-string">"float"</span>):
+        animation_player.play(<span class="code-string">"float"</span>)
+    
+    <span class="code-comment"># Connect the body entered signal</span>
+    body_entered.connect(_on_body_entered)
+
+<span class="code-function">func</span> update_appearance():
+    <span class="code-comment"># Set color and texture based on power-up type</span>
+    <span class="code-keyword">match</span> type:
+        PowerUpType.HEALTH:
+            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">1</span>, <span class="code-number">0.2</span>, <span class="code-number">0.2</span>)  <span class="code-comment"># Red</span>
+        PowerUpType.SPEED:
+            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">0.2</span>, <span class="code-number">1</span>, <span class="code-number">0.2</span>)  <span class="code-comment"># Green</span>
+        PowerUpType.DAMAGE:
+            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">1</span>, <span class="code-number">0.6</span>, <span class="code-number">0.2</span>)  <span class="code-comment"># Orange</span>
+        PowerUpType.FIRE_RATE:
+            sprite.modulate = <span class="code-builtin">Color</span>(<span class="code-number">0.2</span>, <span class="code-number">0.6</span>, <span class="code-number">1</span>)  <span class="code-comment"># Blue</span>
+
+<span class="code-function">func</span> _on_body_entered(body):
+    <span class="code-comment"># Check if the body is the player</span>
+    <span class="code-keyword">if</span> body.is_in_group(<span class="code-string">"player"</span>) <span class="code-keyword">and</span> !collected:
+        apply_effect(body)
+        collect()
+
+<span class="code-function">func</span> apply_effect(player):
+    <span class="code-keyword">match</span> type:
+        PowerUpType.HEALTH:
+            <span class="code-comment"># Instant health restore</span>
+            player.heal(health_amount)
+            <span class="code-builtin">print</span>(<span class="code-string">"Health restored: "</span> + <span class="code-builtin">str</span>(health_amount))
+            
+        PowerUpType.SPEED:
+            <span class="code-comment"># Temporary speed boost</span>
+            <span class="code-keyword">var</span> original_speed = player.speed
+            player.speed *= speed_multiplier
+            <span class="code-builtin">print</span>(<span class="code-string">"Speed boosted for "</span> + <span class="code-builtin">str</span>(effect_duration) + <span class="code-string">" seconds"</span>)
+            
+            <span class="code-comment"># Set up timer to revert effect</span>
+            duration_timer.wait_time = effect_duration
+            duration_timer.timeout.connect(<span class="code-function">func</span>(): player.speed = original_speed)
+            duration_timer.start()
+            
+        PowerUpType.DAMAGE:
+            <span class="code-comment"># Find all bullets currently in the scene and in player's weapon</span>
+            <span class="code-keyword">var</span> original_damage = <span class="code-number">10</span>  <span class="code-comment"># Default bullet damage</span>
+            <span class="code-keyword">if</span> player.has_node(<span class="code-string">"BulletSpawner"</span>):
+                original_damage = player.get_node(<span class="code-string">"BulletSpawner"</span>).bullet_damage
+                player.get_node(<span class="code-string">"BulletSpawner"</span>).bullet_damage *= damage_multiplier
+            
+            <span class="code-builtin">print</span>(<span class="code-string">"Damage boosted for "</span> + <span class="code-builtin">str</span>(effect_duration) + <span class="code-string">" seconds"</span>)
+            
+            <span class="code-comment"># Set up timer to revert effect</span>
+            duration_timer.wait_time = effect_duration
+            duration_timer.timeout.connect(<span class="code-function">func</span>(): 
+                <span class="code-keyword">if</span> player.has_node(<span class="code-string">"BulletSpawner"</span>):
+                    player.get_node(<span class="code-string">"BulletSpawner"</span>).bullet_damage = original_damage
+            )
+            duration_timer.start()
+            
+        PowerUpType.FIRE_RATE:
+            <span class="code-comment"># Increase fire rate temporarily</span>
+            <span class="code-keyword">var</span> original_fire_rate = player.fire_rate
+            player.fire_rate /= fire_rate_multiplier  <span class="code-comment"># Lower value = faster shooting</span>
+            player.shoot_cooldown.wait_time = player.fire_rate
+            
+            <span class="code-builtin">print</span>(<span class="code-string">"Fire rate boosted for "</span> + <span class="code-builtin">str</span>(effect_duration) + <span class="code-string">" seconds"</span>)
+            
+            <span class="code-comment"># Set up timer to revert effect</span>
+            duration_timer.wait_time = effect_duration
+            duration_timer.timeout.connect(<span class="code-function">func</span>(): 
+                player.fire_rate = original_fire_rate
+                player.shoot_cooldown.wait_time = player.fire_rate
+            )
+            duration_timer.start()
+
+<span class="code-function">func</span> collect():
+    collected = <span class="code-builtin">true</span>
+    
+    <span class="code-comment"># Play collection animation or effect</span>
+    <span class="code-keyword">if</span> animation_player <span class="code-keyword">and</span> animation_player.has_animation(<span class="code-string">"collect"</span>):
+        animation_player.play(<span class="code-string">"collect"</span>)
+        <span class="code-comment"># Wait for animation to finish before removing</span>
+        <span class="code-keyword">await</span> animation_player.animation_finished
+        queue_free()
+    <span class="code-keyword">else</span>:
+        <span class="code-comment"># If no animation, just remove the power-up</span>
+        <span class="code-comment"># But keep it around if it has duration effects</span>
+        <span class="code-keyword">if</span> type == PowerUpType.HEALTH <span class="code-keyword">or</span> !duration_timer.is_stopped():
+            <span class="code-comment"># For instant effects, remove immediately</span>
+            queue_free()
+        <span class="code-keyword">else</span>:
+            <span class="code-comment"># For duration effects, hide but keep around until duration ends</span>
+            visible = <span class="code-builtin">false</span>
+            $CollisionShape2D.disabled = <span class="code-builtin">true</span>
+            <span class="code-keyword">await</span> duration_timer.timeout
+            queue_free()
+</code>
+                    </div>
+                    
+                    <h3>Creating Visual Feedback</h3>
+                    <p>To make power-ups more appealing, let's create a floating animation:</p>
+                    
+                    <ol>
+                        <li>Select the AnimationPlayer in the PowerUp scene</li>
+                        <li>Create a new animation called "float"</li>
+                        <li>Set it to loop</li>
+                        <li>Add a position track for the Sprite2D</li>
+                        <li>Create keyframes to make it move up and down slightly</li>
+                        <li>Add a rotation track to make it spin slowly</li>
+                    </ol>
+                    
+                    <p>You should also create a "collect" animation that scales the power-up down and fades it out when collected.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Putting It All Together</h2>
+                    
+                    <h3>Game Manager Script</h3>
+                    <p>Finally, let's create a script for our main Game scene to manage enemy spawning and game state:</p>
+                    
+                    <div class="code-block">
+                        <button class="code-copy-btn">Copy</button>
+                        <code>
+<span class="code-keyword">extends</span> Node2D
+
+<span class="code-export">@export</span> <span class="code-keyword">var</span> enemy_scene: PackedScene
+<span class="code-export">@export</span> <span class="code-keyword">var</span> max_enemies: <span class="code-builtin">int</span> = <span class="code-number">10</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> spawn_interval: <span class="code-builtin">float</span> = <span class="code-number">2.0</span>
+<span class="code-export">@export</span> <span class="code-keyword">var</span> spawn_radius: <span class="code-builtin">float</span> = <span class="code-number">500.0</span>
+
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> spawn_timer = $SpawnTimer
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> enemies_node = $Enemies
+<span class="code-onready">@onready</span> <span class="code-keyword">var</span> player = $Player
+
+<span class="code-keyword">var</span> score = <span class="code-number">0</span>
+<span class="code-keyword">var</span> game_over = <span class="code-builtin">false</span>
+
+<span class="code-function">func</span> _ready():
+    <span class="code-comment"># Set up the spawn timer</span>
+    spawn_timer.wait_time = spawn_interval
+    spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+    spawn_timer.start()
+    
+    <span class="code-comment"># Connect to player's health_changed signal to update UI</span>
+    <span class="code-keyword">if</span> player:
+        player.health_changed.connect(_on_player_health_changed)
+
+<span class="code-function">func</span> _on_spawn_timer_timeout():
+    <span class="code-comment"># Don't spawn if game is over or we've reached the maximum</span>
+    <span class="code-keyword">if</span> game_over <span class="code-keyword">or</span> enemies_node.get_child_count() >= max_enemies:
+        <span class="code-keyword">return</span>
+    
+    <span class="code-comment"># Spawn an enemy at a random position around the player</span>
+    <span class="code-keyword">var</span> enemy = enemy_scene.instantiate()
+    
+    <span class="code-comment"># Calculate a random position outside the screen but within spawn radius</span>
+    <span class="code-keyword">var</span> spawn_direction = <span class="code-builtin">Vector2</span>(randf_range(-<span class="code-number">1</span>, <span class="code-number">1</span>), randf_range(-<span class="code-number">1</span>, <span class="code-number">1</span>)).normalized()
+    <span class="code-keyword">var</span> spawn_position = player.global_position + (spawn_direction * spawn_radius)
+    
+    enemy.global_position = spawn_position
+    enemies_node.add_child(enemy)
+
+<span class="code-function">func</span> _on_player_health_changed(new_health):
+    <span class="code-comment"># Update health UI</span>
+    <span class="code-keyword">if</span> has_node(<span class="code-string">"UI/HealthBar"</span>):
+        $UI/HealthBar.value = new_health
+    
+    <span class="code-comment"># Check for game over</span>
+    <span class="code-keyword">if</span> new_health <= <span class="code-number">0</span> <span class="code-keyword">and</span> !game_over:
+        game_over = <span class="code-builtin">true</span>
+        spawn_timer.stop()
+        <span class="code-comment"># Show game over screen</span>
+        <span class="code-keyword">if</span> has_node(<span class="code-string">"UI/GameOverScreen"</span>):
+            $UI/GameOverScreen.visible = <span class="code-builtin">true</span>
+
+<span class="code-function">func</span> _process(_delta):
+    <span class="code-comment"># Update score display</span>
+    <span class="code-keyword">if</span> has_node(<span class="code-string">"UI/ScoreLabel"</span>):
+        $UI/ScoreLabel.text = <span class="code-string">"Score: "</span> + <span class="code-builtin">str</span>(score)
+
+<span class="code-function">func</span> increase_score(amount := <span class="code-number">10</span>):
+    score += amount
+</code>
+                    </div>
+                    
+                    <h3>Creating a Simple UI</h3>
+                    <p>Add a basic UI to display health and score:</p>
+                    <ol>
+                        <li>Add a CanvasLayer named "UI" to your Game scene</li>
+                        <li>Add a ProgressBar child for the health bar</li>
+                        <li>Add a Label for the score</li>
+                        <li>Add a Control node for the game over screen (set to hidden initially)</li>
+                    </ol>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Testing and Tweaking</h2>
+                    
+                    <p>Now that you have all the major components in place, it's time to test and balance your game:</p>
+                    
+                    <h3>Game Balance Tips</h3>
+                    <ul>
+                        <li><strong>Player speed vs. enemy speed</strong> - The player should be slightly faster than basic enemies</li>
+                        <li><strong>Damage values</strong> - Consider how many hits it should take to defeat enemies or for the player to be defeated</li>
+                        <li><strong>Fire rate and bullet speed</strong> - These affect the difficulty significantly</li>
+                        <li><strong>Power-up frequency</strong> - Power-ups should be rare enough to be exciting but frequent enough to be useful</li>
+                    </ul>
+                    
+                    <h3>Adding Polish</h3>
+                    <p>To make your game feel more complete, consider adding:</p>
+                    <ul>
+                        <li><strong>Sound effects</strong> - For shooting, taking damage, collecting power-ups, etc.</li>
+                        <li><strong>Screen shake</strong> - When taking damage or defeating enemies</li>
+                        <li><strong>Particle effects</strong> - For weapon impacts, enemy deaths, etc.</li>
+                        <li><strong>Camera effects</strong> - Like subtle zoom when shooting or taking damage</li>
+                    </ul>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Conclusion</h2>
+                    
+                    <p>Congratulations! You've built a complete top-down shooter game in Godot with:</p>
+                    <ul>
+                        <li>Smooth player movement and rotation</li>
+                        <li>A flexible shooting system</li>
+                        <li>Enemy AI with pathfinding</li>
+                        <li>A health and damage system</li>
+                        <li>Power-ups with different effects</li>
+                        <li>Basic game management and UI</li>
+                    </ul>
+                    
+                    <p>From here, you can expand your game by adding:</p>
+                    <ul>
+                        <li>Different enemy types with unique behaviors</li>
+                        <li>More weapon types and power-ups</li>
+                        <li>Levels and progression</li>
+                        <li>Boss battles</li>
+                        <li>Environmental hazards and obstacles</li>
+                    </ul>
+                    
+                    <p>For more inspiration, check out our other game templates and tutorials!</p>
+                </div>
+                
+                <div class="tutorial-nav">
+                    <a href="../movement/topdown-movement.html"><i class="fas fa-arrow-left"></i> Top-down Movement Tutorial</a>
+                    <a href="2d-platformer.html">Next: 2D Platformer Game <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Godot Template Generator</h2>
+                    <p>Making game development accessible</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="../../index.html#tutorials">Tutorials</a></li>
+                        <li><a href="../../index.html#generator">AI Generator</a></li>
+                        <li><a href="../../index.html#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://godotengine.org/" target="_blank">Godot Engine</a></li>
+                        <li><a href="https://docs.godotengine.org/" target="_blank">Godot Documentation</a></li>
+                        <li><a href="https://github.com/" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Godot Template Generator. All code examples are provided under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../scripts/main.js"></script>
+    <script>
+        // Add functionality to copy buttons
+        document.querySelectorAll('.code-copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.nextElementSibling;
+                const textToCopy = codeBlock.textContent;
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top-down Movement - Godot Template Generator</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-content {
+            background-color: var(--background-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumbs a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumbs i {
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tutorial-content h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content ul, .tutorial-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .tutorial-content li {
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #2a2a2a;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+        
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tutorial-nav a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+        
+        .tutorial-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tutorial-nav a i {
+            margin: 0 8px;
+        }
+        
+        .tutorial-section {
+            margin-bottom: 40px;
+        }
+        
+        .note-box {
+            background-color: rgba(71, 140, 191, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .comparison-table th {
+            background-color: rgba(71, 140, 191, 0.1);
+            color: var(--secondary-color);
+            text-align: left;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../../assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#tutorials" class="active">Tutorials</a></li>
+                    <li><a href="../../index.html#generator">AI Generator</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="tutorials">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="../../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../../index.html#tutorials">Tutorials</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="movement.html">Character Movement</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Top-down Movement</span>
+            </div>
+            
+            <div class="section-header">
+                <h2>Top-down Movement in Godot</h2>
+                <p>Implementing smooth and responsive top-down character control</p>
+            </div>
+            
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h2>Introduction to Top-down Movement</h2>
+                    <p>Top-down games view the game world from above, giving players a bird's-eye perspective of their character and surroundings. This viewpoint is used in numerous game genres, including action RPGs (Diablo, Zelda), roguelikes (Binding of Isaac, Enter the Gungeon), and strategy games.</p>
+                    
+                    <p>In this tutorial, we'll explore different approaches to implementing top-down movement in Godot, including different control schemes and movement patterns.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Setting Up Your Character</h2>
+                    <p>Start with a basic character setup:</p>
+                    
+                    <h3>Node Structure</h3>
+                    <ul>
+                        <li><strong>CharacterBody2D</strong> - The main player node</li>
+                        <li>└─ <strong>CollisionShape2D</strong> - The player's collision shape (usually a circle for top-down characters)</li>
+                        <li>└─ <strong>Sprite2D</strong> - The player's visual representation</li>
+                        <li>└─ <strong>Camera2D</strong> - For following the player</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <p><strong>Note:</strong> For top-down characters, a circular collision shape often works best to prevent getting caught on corners.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Basic Movement Patterns</h2>
+                    
+                    <h3>4-Directional Movement</h3>
+                    <p>4-directional movement allows the player to move in four cardinal directions: up, down, left, and right. This style is often used in grid-based games or games with a retro feel like classic Zelda titles.</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+@export var speed = 200.0
+
+func _physics_process(delta):
+    # Reset velocity
+    velocity = Vector2.ZERO
+    
+    # Get input direction
+    if Input.is_action_pressed("ui_right"):
+        velocity.x += 1
+    if Input.is_action_pressed("ui_left"):
+        velocity.x -= 1
+    if Input.is_action_pressed("ui_down"):
+        velocity.y += 1
+    if Input.is_action_pressed("ui_up"):
+        velocity.y -= 1
+    
+    # Apply speed
+    if velocity.length() > 0:
+        # Normalize to prevent faster diagonal movement
+        velocity = velocity.normalized() * speed
+    
+    # Move the character
+    move_and_slide()
+                    </div>
+                    
+                    <h3>8-Directional Movement</h3>
+                    <p>8-directional movement adds diagonal movement to the four cardinal directions, allowing for more fluid character control. This is the standard for most modern top-down games.</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+@export var speed = 200.0
+@export var acceleration = 800.0
+@export var friction = 1000.0
+
+func _physics_process(delta):
+    # Get input direction
+    var input_vector = Vector2.ZERO
+    input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+    input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+    input_vector = input_vector.normalized()
+    
+    if input_vector != Vector2.ZERO:
+        # Accelerate when there's input
+        velocity = velocity.move_toward(input_vector * speed, acceleration * delta)
+    else:
+        # Apply friction when no input
+        velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+    
+    move_and_slide()
+                    </div>
+                    
+                    <p>This implementation provides smooth acceleration and deceleration, making the character's movement feel more natural and responsive.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Rotation and Facing Direction</h2>
+                    
+                    <h3>Rotation Based on Movement</h3>
+                    <p>In many top-down games, the character rotates to face the direction of movement:</p>
+                    
+                    <div class="code-block">
+func _physics_process(delta):
+    # ... Movement code from above ...
+    
+    # Rotate sprite to face movement direction
+    if velocity.length() > 0:
+        # Calculate the angle from the velocity vector
+        rotation = velocity.angle()
+        
+        # Alternatively, use rotation_degrees for more intuitive angle values
+        # rotation_degrees = rad_to_deg(velocity.angle())
+    
+    move_and_slide()
+                    </div>
+                    
+                    <h3>Rotation Towards Mouse Cursor</h3>
+                    <p>For games where aiming is important (like twin-stick shooters), you might want the character to face the mouse cursor:</p>
+                    
+                    <div class="code-block">
+func _physics_process(delta):
+    # ... Movement code ...
+    
+    # Get mouse position in global coordinates
+    var mouse_pos = get_global_mouse_position()
+    
+    # Calculate direction to mouse
+    var direction_to_mouse = global_position.direction_to(mouse_pos)
+    
+    # Set rotation to face mouse
+    rotation = direction_to_mouse.angle()
+    
+    move_and_slide()
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>Tip:</strong> For smoother rotation, you can use <code>lerp_angle</code> to gradually rotate towards the target angle:</p>
+                        <code>rotation = lerp_angle(rotation, direction_to_mouse.angle(), 10 * delta)</code>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Collision Handling</h2>
+                    <p>In top-down games, collision handling is typically simpler than in platformers since there's no gravity to worry about. However, there are still some considerations:</p>
+                    
+                    <h3>Sliding Along Walls</h3>
+                    <p>The <code>move_and_slide()</code> method automatically handles sliding along walls, but you can customize the behavior:</p>
+                    
+                    <div class="code-block">
+func _physics_process(delta):
+    # ... Movement code ...
+    
+    # Move and slide with custom parameters
+    # The up_direction is used for determining floor vs. wall collisions
+    # For top-down, we typically use (0, 0) since there's no concept of floor
+    var up_direction = Vector2.ZERO
+    var stop_on_slope = false
+    var max_slides = 4
+    var floor_max_angle = 0.785398  # ~45 degrees in radians
+    var infinite_inertia = true
+    
+    move_and_slide()
+    
+    # Check for collisions
+    for i in get_slide_collision_count():
+        var collision = get_slide_collision(i)
+        # You can handle specific collision responses here
+        # For example, damage if colliding with an enemy
+        if collision.get_collider().is_in_group("enemies"):
+            take_damage()
+                    </div>
+                    
+                    <h3>Custom Collision Response</h3>
+                    <p>Sometimes you want custom behavior when colliding with specific objects:</p>
+                    
+                    <div class="code-block">
+func _physics_process(delta):
+    # ... Movement and collision code ...
+    
+    # Check for collisions with items
+    var items = $ItemDetector.get_overlapping_bodies()
+    for item in items:
+        if item.has_method("collect"):
+            item.collect()
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Common Implementation Styles</h2>
+                    
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Style</th>
+                            <th>Description</th>
+                            <th>Best For</th>
+                        </tr>
+                        <tr>
+                            <td>Direct Movement</td>
+                            <td>Character moves in the direction of input</td>
+                            <td>Action RPGs, roguelikes</td>
+                        </tr>
+                        <tr>
+                            <td>Tank Controls</td>
+                            <td>Forward/backward movement with rotation</td>
+                            <td>Vehicular games, some horror games</td>
+                        </tr>
+                        <tr>
+                            <td>Mouse Following</td>
+                            <td>Character moves toward mouse cursor</td>
+                            <td>Point-and-click games, some ARPGs</td>
+                        </tr>
+                        <tr>
+                            <td>Twin-stick Style</td>
+                            <td>Move with left stick/WASD, aim with right stick/mouse</td>
+                            <td>Shooters, action games</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Tank-style Movement</h3>
+                    <p>In tank-style movement, the character rotates in place and moves forward or backward relative to its facing direction:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+@export var speed = 200.0
+@export var rotation_speed = 3.0  # Radians per second
+
+func _physics_process(delta):
+    # Handle rotation
+    var rotation_direction = 0
+    if Input.is_action_pressed("ui_right"):
+        rotation_direction += 1
+    if Input.is_action_pressed("ui_left"):
+        rotation_direction -= 1
+    
+    # Apply rotation
+    rotation += rotation_direction * rotation_speed * delta
+    
+    # Handle forward/backward movement
+    var direction = 0
+    if Input.is_action_pressed("ui_up"):
+        direction += 1
+    if Input.is_action_pressed("ui_down"):
+        direction -= 1
+    
+    # Calculate velocity based on current rotation
+    velocity = Vector2(0, -direction * speed).rotated(rotation)
+    
+    move_and_slide()
+                    </div>
+                    
+                    <h3>Mouse-following Movement</h3>
+                    <p>For point-and-click style movement, the character moves toward the mouse cursor when clicking:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+@export var speed = 200.0
+@export var arrival_distance = 5.0
+
+var target_position = null
+
+func _input(event):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+        target_position = get_global_mouse_position()
+
+func _physics_process(delta):
+    if target_position:
+        var direction = global_position.direction_to(target_position)
+        var distance = global_position.distance_to(target_position)
+        
+        # Move toward target position
+        if distance > arrival_distance:
+            velocity = direction * speed
+            
+            # Optional: face the direction of movement
+            rotation = direction.angle()
+        else:
+            # Stop when close enough to target
+            velocity = Vector2.ZERO
+            target_position = null
+    else:
+        velocity = Vector2.ZERO
+    
+    move_and_slide()
+                    </div>
+                    
+                    <h3>Twin-stick Shooter Style</h3>
+                    <p>For twin-stick shooters, the character moves with one set of controls and aims/shoots with another:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+@export var speed = 200.0
+@export var acceleration = 800.0
+@export var friction = 1000.0
+
+@onready var weapon = $Weapon
+
+func _physics_process(delta):
+    # Get movement input
+    var input_vector = Vector2.ZERO
+    input_vector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+    input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+    input_vector = input_vector.normalized()
+    
+    # Apply movement with acceleration/friction
+    if input_vector != Vector2.ZERO:
+        velocity = velocity.move_toward(input_vector * speed, acceleration * delta)
+    else:
+        velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+    
+    # Get aim direction (mouse or right stick)
+    var aim_vector = Vector2.ZERO
+    if Input.get_connected_joypads().size() > 0:
+        # Using right stick for aiming
+        aim_vector.x = Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left")
+        aim_vector.y = Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up")
+        
+        if aim_vector.length() > 0.2:  # Small deadzone
+            # Rotate player to face aim direction
+            rotation = aim_vector.angle()
+    else:
+        # Using mouse for aiming
+        var mouse_pos = get_global_mouse_position()
+        aim_vector = global_position.direction_to(mouse_pos)
+        rotation = aim_vector.angle()
+    
+    # Shoot when input is pressed
+    if Input.is_action_just_pressed("shoot") and weapon:
+        weapon.shoot(aim_vector)
+    
+    move_and_slide()
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Best Practices</h2>
+                    
+                    <h3>Tuning Movement Parameters</h3>
+                    <ul>
+                        <li><strong>Speed</strong> - Adjust based on your game's scale and desired pace</li>
+                        <li><strong>Acceleration</strong> - Higher values mean more responsive but less smooth movement</li>
+                        <li><strong>Friction</strong> - Affects how quickly the character stops when input ceases</li>
+                    </ul>
+                    
+                    <h3>Collision Shapes</h3>
+                    <p>For top-down movement, circular collision shapes often work best as they prevent getting caught on corners.</p>
+                    
+                    <h3>Camera Considerations</h3>
+                    <p>Attach a Camera2D to your player with appropriate settings:</p>
+                    <ul>
+                        <li>Add smoothing for a more polished feel</li>
+                        <li>Consider adding camera limits to prevent viewing outside the level boundaries</li>
+                        <li>For some games, a slight offset in the direction of movement or mouse cursor can improve visibility</li>
+                    </ul>
+                    
+                    <div class="code-block">
+# Camera setup in _ready()
+func _ready():
+    $Camera2D.smoothing_enabled = true
+    $Camera2D.smoothing_speed = 5.0
+    
+    # Set camera limits if your level has defined boundaries
+    var map_limits = $TileMap.get_used_rect()
+    var map_cellsize = $TileMap.cell_size
+    $Camera2D.limit_left = map_limits.position.x * map_cellsize.x
+    $Camera2D.limit_right = map_limits.end.x * map_cellsize.x
+    $Camera2D.limit_top = map_limits.position.y * map_cellsize.y
+    $Camera2D.limit_bottom = map_limits.end.y * map_cellsize.y
+                    </div>
+                    
+                    <h3>Animation Considerations</h3>
+                    <p>Top-down character animation typically includes:</p>
+                    <ul>
+                        <li>Idle animation when not moving</li>
+                        <li>Walking/running animations for each direction (or a single animation with sprite rotation)</li>
+                        <li>Action animations (attacking, using items, etc.)</li>
+                    </ul>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Complete Example: Versatile Top-down Controller</h2>
+                    <p>Here's a complete script that combines the various approaches and can be customized for different top-down movement styles:</p>
+                    
+                    <div class="code-block">
+extends CharacterBody2D
+
+# Movement style enum
+enum MovementStyle {
+    DIRECT,      # Direct 8-way movement
+    TANK,        # Rotate and move forward/backward
+    MOUSE_FOLLOW, # Move toward clicked position
+    TWIN_STICK   # Move with one control, aim with another
+}
+
+# Export parameters
+@export var movement_style: MovementStyle = MovementStyle.DIRECT
+@export var speed = 200.0
+@export var acceleration = 800.0
+@export var friction = 1000.0
+@export var rotation_speed = 3.0  # For tank controls
+@export var arrival_distance = 5.0  # For mouse following
+
+# State variables
+var target_position = null
+var aim_direction = Vector2.RIGHT
+
+func _input(event):
+    # Handle mouse click for mouse following style
+    if movement_style == MovementStyle.MOUSE_FOLLOW:
+        if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+            target_position = get_global_mouse_position()
+
+func _physics_process(delta):
+    match movement_style:
+        MovementStyle.DIRECT:
+            _handle_direct_movement(delta)
+        MovementStyle.TANK:
+            _handle_tank_movement(delta)
+        MovementStyle.MOUSE_FOLLOW:
+            _handle_mouse_follow_movement(delta)
+        MovementStyle.TWIN_STICK:
+            _handle_twin_stick_movement(delta)
+    
+    move_and_slide()
+
+func _handle_direct_movement(delta):
+    # Get input direction
+    var input_vector = Vector2.ZERO
+    input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+    input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+    input_vector = input_vector.normalized()
+    
+    if input_vector != Vector2.ZERO:
+        # Accelerate when there's input
+        velocity = velocity.move_toward(input_vector * speed, acceleration * delta)
+        
+        # Optional: face movement direction
+        rotation = input_vector.angle()
+    else:
+        # Apply friction when no input
+        velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+
+func _handle_tank_movement(delta):
+    # Handle rotation
+    var rotation_direction = 0
+    if Input.is_action_pressed("ui_right"):
+        rotation_direction += 1
+    if Input.is_action_pressed("ui_left"):
+        rotation_direction -= 1
+    
+    # Apply rotation
+    rotation += rotation_direction * rotation_speed * delta
+    
+    # Handle forward/backward movement
+    var direction = 0
+    if Input.is_action_pressed("ui_up"):
+        direction += 1
+    if Input.is_action_pressed("ui_down"):
+        direction -= 1
+    
+    # Calculate velocity based on current rotation
+    velocity = Vector2(0, -direction * speed).rotated(rotation)
+
+func _handle_mouse_follow_movement(delta):
+    if target_position:
+        var direction = global_position.direction_to(target_position)
+        var distance = global_position.distance_to(target_position)
+        
+        # Move toward target position
+        if distance > arrival_distance:
+            velocity = velocity.move_toward(direction * speed, acceleration * delta)
+            
+            # Face the direction of movement
+            rotation = direction.angle()
+        else:
+            # Stop when close enough to target
+            velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+            target_position = null
+    else:
+        velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+
+func _handle_twin_stick_movement(delta):
+    # Get movement input
+    var input_vector = Vector2.ZERO
+    input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+    input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+    input_vector = input_vector.normalized()
+    
+    # Apply movement with acceleration/friction
+    if input_vector != Vector2.ZERO:
+        velocity = velocity.move_toward(input_vector * speed, acceleration * delta)
+    else:
+        velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+    
+    # Get aim direction (mouse or right stick)
+    if Input.get_connected_joypads().size() > 0:
+        # Using right stick for aiming (assuming appropriate input actions)
+        var aim_vector = Vector2.ZERO
+        aim_vector.x = Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left")
+        aim_vector.y = Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up")
+        
+        if aim_vector.length() > 0.2:  # Small deadzone
+            aim_direction = aim_vector.normalized()
+            rotation = aim_direction.angle()
+    else:
+        # Using mouse for aiming
+        var mouse_pos = get_global_mouse_position()
+        aim_direction = global_position.direction_to(mouse_pos)
+        rotation = aim_direction.angle()
+                    </div>
+                </div>
+                
+                <div class="tutorial-nav">
+                    <a href="2d-platform-movement.html"><i class="fas fa-arrow-left"></i> Previous: 2D Platform Movement</a>
+                    <a href="first-person-movement.html">Next: First-person Movement <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Godot Template Generator</h2>
+                    <p>Making game development accessible</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="../../index.html#tutorials">Tutorials</a></li>
+                        <li><a href="../../index.html#generator">AI Generator</a></li>
+                        <li><a href="../../index.html#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://godotengine.org/" target="_blank">Godot Engine</a></li>
+                        <li><a href="https://docs.godotengine.org/" target="_blank">Godot Documentation</a></li>
+                        <li><a href="https://github.com/" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Godot Template Generator. All code examples are provided under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../scripts/main.js"></script>
+</body>
+</html>
+

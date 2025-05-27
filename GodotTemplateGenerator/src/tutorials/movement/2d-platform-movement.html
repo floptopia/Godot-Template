@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Platform Movement - Godot Template Generator</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles/code-highlight.css">
+    <style>
+        /* Tutorial-specific styles */
+        .tutorial-content {
+            background-color: var(--background-white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumbs a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumbs i {
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tutorial-content h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content ul, .tutorial-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .tutorial-content li {
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background-color: #2a2a2a;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            font-family: monospace;
+            line-height: 1.4;
+            position: relative;
+            counter-reset: line;
+        }
+        
+        .code-line {
+            display: block;
+            position: relative;
+            padding-left: 3em;
+        }
+        
+        .code-line:before {
+            counter-increment: line;
+            content: counter(line);
+            position: absolute;
+            left: 0;
+            color: #888;
+            width: 2.5em;
+            text-align: right;
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #f8f8f2;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .tutorial-nav a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+        }
+        
+        .tutorial-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .tutorial-nav a i {
+            margin: 0 8px;
+        }
+        
+        .tutorial-section {
+            margin-bottom: 40px;
+        }
+        
+        .note-box {
+            background-color: rgba(71, 140, 191, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="../../assets/logo-placeholder.png" alt="Godot Template Generator Logo">
+                <h1>Godot Template Generator</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../index.html#tutorials" class="active">Tutorials</a></li>
+                    <li><a href="../../index.html#generator">AI Generator</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="tutorials">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="../../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../../index.html#tutorials">Tutorials</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="movement.html">Character Movement</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>2D Platform Movement</span>
+            </div>
+            
+            <div class="section-header">
+                <h2>2D Platform Movement in Godot</h2>
+                <p>Creating smooth and responsive platformer controls</p>
+            </div>
+            
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <h2>Introduction to 2D Platform Movement</h2>
+                    <p>2D platformers are among the most popular game genres, featuring side-scrolling gameplay where characters navigate by running and jumping across platforms. Games like Super Mario Bros, Hollow Knight, and Celeste have set high standards for how platform movement should feel.</p>
+                    
+                    <p>This tutorial covers how to implement smooth, responsive 2D platformer movement in Godot, including horizontal movement, jumping mechanics, and advanced techniques like coyote time.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Setting Up Your Character</h2>
+                    <p>Start by creating a basic character setup:</p>
+                    
+                    <h3>Node Structure</h3>
+                    <ul>
+                        <li><strong>CharacterBody2D</strong> - The main player node</li>
+                        <li>└─ <strong>CollisionShape2D</strong> - The player's collision shape</li>
+                        <li>└─ <strong>AnimatedSprite2D</strong> - The player's visual representation with animations</li>
+                        <li>└─ <strong>AnimationPlayer</strong> - For handling additional animations and effects</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <p><strong>Note:</strong> In Godot 4.x, we use CharacterBody2D which replaces the KinematicBody2D from Godot 3.x. The principles are similar, but the API has some differences.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Basic Horizontal Movement</h2>
+                    <p>Let's start with implementing basic left-right movement for our character:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        <div class="code-line">extends CharacterBody2D</div>
+                        <div class="code-line"></div>
+                        <div class="code-line"># Movement parameters</div>
+                        <div class="code-line">@export var speed = 300.0</div>
+                        <div class="code-line">@export var acceleration = 1500.0</div>
+                        <div class="code-line">@export var friction = 1000.0</div>
+                        <div class="code-line"></div>
+                        <div class="code-line"># Get the gravity from the project settings to be synced with RigidBody nodes</div>
+                        <div class="code-line">var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">func _physics_process(delta):</div>
+                        <div class="code-line">    # Handle horizontal movement</div>
+                        <div class="code-line">    var direction = Input.get_axis("ui_left", "ui_right")</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    if direction != 0:</div>
+                        <div class="code-line">        # Accelerate when moving</div>
+                        <div class="code-line">        velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)</div>
+                        <div class="code-line">        </div>
+                        <div class="code-line">        # Update sprite direction and animation</div>
+                        <div class="code-line">        $AnimatedSprite2D.flip_h = direction < 0</div>
+                        <div class="code-line">        $AnimatedSprite2D.play("run")</div>
+                        <div class="code-line">    else:</div>
+                        <div class="code-line">        # Apply friction when not pressing movement keys</div>
+                        <div class="code-line">        velocity.x = move_toward(velocity.x, 0, friction * delta)</div>
+                        <div class="code-line">        $AnimatedSprite2D.play("idle")</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Apply gravity</div>
+                        <div class="code-line">    if not is_on_floor():</div>
+                        <div class="code-line">        velocity.y += gravity * delta</div>
+                        <div class="code-line">        $AnimatedSprite2D.play("jump" if velocity.y < 0 else "fall")</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Move the character</div>
+                        <div class="code-line">    move_and_slide()</div>
+                    </div>
+                    
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><strong>Input.get_axis()</strong> - Returns a value between -1 and 1, making it easier to handle input for movement</li>
+                        <li><strong>move_toward()</strong> - Gradually changes a value toward a target, creating smooth acceleration and deceleration</li>
+                        <li><strong>acceleration</strong> - How quickly the character reaches top speed</li>
+                        <li><strong>friction</strong> - How quickly the character comes to a stop</li>
+                    </ul>
+                    
+                    <p>This approach creates movement that feels responsive yet natural, with gradual acceleration and deceleration rather than instant starting and stopping.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Jumping Mechanics</h2>
+                    <p>Adding jumping functionality is the next key component of platformer movement:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        <div class="code-line">extends CharacterBody2D</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">@export var speed = 300.0</div>
+                        <div class="code-line">@export var acceleration = 1500.0</div>
+                        <div class="code-line">@export var friction = 1000.0</div>
+                        <div class="code-line">@export var jump_velocity = -400.0</div>
+                        <div class="code-line">@export var jump_cut_height = 0.5  # For variable jump height</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">func _physics_process(delta):</div>
+                        <div class="code-line">    # Handle horizontal movement (same as before)</div>
+                        <div class="code-line">    var direction = Input.get_axis("ui_left", "ui_right")</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    if direction != 0:</div>
+                        <div class="code-line">        velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)</div>
+                        <div class="code-line">        $AnimatedSprite2D.flip_h = direction < 0</div>
+                        <div class="code-line">        $AnimatedSprite2D.play("run")</div>
+                        <div class="code-line">    else:</div>
+                        <div class="code-line">        velocity.x = move_toward(velocity.x, 0, friction * delta)</div>
+                        <div class="code-line">        $AnimatedSprite2D.play("idle")</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Handle jumping</div>
+                        <div class="code-line">    if is_on_floor():</div>
+                        <div class="code-line">        if Input.is_action_just_pressed("ui_accept"):</div>
+                        <div class="code-line">            velocity.y = jump_velocity</div>
+                        <div class="code-line">            $AnimatedSprite2D.play("jump")</div>
+                        <div class="code-line">    else:</div>
+                        <div class="code-line">        # Implement variable jump height by cutting the jump short when button is released</div>
+                        <div class="code-line">        if Input.is_action_just_released("ui_accept") and velocity.y < 0:</div>
+                        <div class="code-line">            velocity.y = velocity.y * jump_cut_height</div>
+                        <div class="code-line">        </div>
+                        <div class="code-line">        # Apply gravity with a higher value when falling for better feel</div>
+                        <div class="code-line">        var gravity_multiplier = 1.0</div>
+                        <div class="code-line">        if velocity.y > 0:  # If falling</div>
+                        <div class="code-line">            gravity_multiplier = 1.2</div>
+                        <div class="code-line">            $AnimatedSprite2D.play("fall")</div>
+                        <div class="code-line">        </div>
+                        <div class="code-line">        velocity.y += gravity * gravity_multiplier * delta</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    move_and_slide()</div>
+                    </div>
+                    
+                    <h3>Key Jumping Concepts</h3>
+                    <ul>
+                        <li><strong>Variable Jump Height</strong> - Allow players to control jump height by how long they press the jump button</li>
+                        <li><strong>Higher Falling Gravity</strong> - Makes falling feel faster and more natural</li>
+                        <li><strong>is_on_floor()</strong> - Checks if the character is standing on a surface</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <p><strong>Tip:</strong> The values for jump_velocity will be negative because in Godot, the Y-axis points downward. A negative value means moving upward.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Ground Detection</h2>
+                    <p>Reliable ground detection is crucial for platformers. While <code>is_on_floor()</code> handles basic detection, sometimes you need more sophisticated checks:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        <div class="code-line"># Add these variables to the top of your script</div>
+                        <div class="code-line">@export var ground_raycast_length = 10.0</div>
+                        <div class="code-line">@onready var raycast_left = $RayCastLeft</div>
+                        <div class="code-line">@onready var raycast_middle = $RayCastMiddle</div>
+                        <div class="code-line">@onready var raycast_right = $RayCastRight</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">func _ready():</div>
+                        <div class="code-line">    # Setup raycasts for better ground detection</div>
+                        <div class="code-line">    raycast_left.target_position = Vector2(-$CollisionShape2D.shape.extents.x * 0.8, ground_raycast_length)</div>
+                        <div class="code-line">    raycast_middle.target_position = Vector2(0, ground_raycast_length)</div>
+                        <div class="code-line">    raycast_right.target_position = Vector2($CollisionShape2D.shape.extents.x * 0.8, ground_raycast_length)</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">func is_grounded():</div>
+                        <div class="code-line">    # Return true if any raycast is colliding with ground</div>
+                        <div class="code-line">    return is_on_floor() || raycast_left.is_colliding() || raycast_middle.is_colliding() || raycast_right.is_colliding()</div>
+                        <div class="code-line"></div>
+                        <div class="code-line"># Then replace is_on_floor() checks with is_grounded() in your code</div>
+                    </div>
+                    
+                    <p>This approach uses three raycasts positioned at the character's bottom edge to provide more reliable ground detection, especially when the character is at the edge of a platform.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Air Control</h2>
+                    <p>Controlling the character while in the air is important for precise platforming. Usually, air control is slightly reduced compared to ground movement:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        <div class="code-line">@export var air_control = 0.7  # Multiplier for air control (0-1)</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">func _physics_process(delta):</div>
+                        <div class="code-line">    var direction = Input.get_axis("ui_left", "ui_right")</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Apply different acceleration based on ground or air state</div>
+                        <div class="code-line">    var current_acceleration = acceleration</div>
+                        <div class="code-line">    if !is_grounded():</div>
+                        <div class="code-line">        current_acceleration *= air_control</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    if direction != 0:</div>
+                        <div class="code-line">        velocity.x = move_toward(velocity.x, direction * speed, current_acceleration * delta)</div>
+                        <div class="code-line">        $AnimatedSprite2D.flip_h = direction < 0</div>
+                        <div class="code-line">        $AnimatedSprite2D.play("run" if is_grounded() else "jump" if velocity.y < 0 else "fall")</div>
+                        <div class="code-line">    else:</div>
+                        <div class="code-line">        velocity.x = move_toward(velocity.x, 0, friction * delta)</div>
+                        <div class="code-line">        if is_grounded():</div>
+                        <div class="code-line">            $AnimatedSprite2D.play("idle")</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Rest of your movement code...</div>
+                        <div class="code-line">    move_and_slide()</div>
+                    </div>
+                    
+                    <p>By reducing acceleration in the air, the character feels more floaty and less responsive while airborne, which is typically how platformer characters behave. You can adjust the <code>air_control</code> value to tune how much control the player has while jumping.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Coyote Time</h2>
+                    <p>Coyote time is a gameplay technique that allows players to jump for a brief period after walking off a ledge. This makes the controls feel more forgiving:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        <div class="code-line"># Add these variables to your script</div>
+                        <div class="code-line">@export var coyote_time = 0.15  # Time in seconds</div>
+                        <div class="code-line">var coyote_timer = 0.0</div>
+                        <div class="code-line">var was_on_floor = false</div>
+                        <div class="code-line"></div>
+                        <div class="code-line">func _physics_process(delta):</div>
+                        <div class="code-line">    # Check for coyote time</div>
+                        <div class="code-line">    if was_on_floor && !is_grounded():</div>
+                        <div class="code-line">        coyote_timer = coyote_time</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Reduce timer</div>
+                        <div class="code-line">    if coyote_timer > 0:</div>
+                        <div class="code-line">        coyote_timer -= delta</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Handle jumping with coyote time</div>
+                        <div class="code-line">    if (is_grounded() || coyote_timer > 0) && Input.is_action_just_pressed("ui_accept"):</div>
+                        <div class="code-line">        velocity.y = jump_velocity</div>
+                        <div class="code-line">        $AnimatedSprite2D.play("jump")</div>
+                        <div class="code-line">        coyote_timer = 0  # Reset timer once used</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Rest of your movement code...</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    # Update was_on_floor for next frame</div>
+                        <div class="code-line">    was_on_floor = is_grounded()</div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    move_and_slide()</div>
+                    </div>
+                    
+                    <p>This implementation gives players a small grace period to jump after leaving a platform, making the controls feel more responsive and forgiving.</p>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Common Pitfalls and Solutions</h2>
+                    
+                    <h3>Collision Issues</h3>
+                    <p>Characters getting stuck on corners or edges is a common problem. To fix this:</p>
+                    <ul>
+                        <li>Use a capsule collision shape instead of a rectangle</li>
+                        <li>Ensure your tilemap collision shapes are properly set up</li>
+                        <li>Use <code>move_and_slide()</code> which handles sliding along surfaces</li>
+                    </ul>
+                    
+                    <h3>Inconsistent Jump Height</h3>
+                    <p>Frame rate can affect jump height if not handled properly. To ensure consistent physics:</p>
+                    <ul>
+                        <li>Always multiply forces by <code>delta</code> time</li>
+                        <li>Use fixed timestep for physics operations</li>
+                    </ul>
+                    
+                    <h3>Input Feeling Delayed</h3>
+                    <p>If controls feel unresponsive, consider:</p>
+                    <ul>
+                        <li>Reducing acceleration time for more immediate response</li>
+                        <li>Implementing jump buffering (allowing jumps to be queued)</li>
+                        <li>Adding visual feedback like squash and stretch animations</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <p><strong>Warning:</strong> Avoid changing physics parameters like gravity or jump velocity directly based on player input. Instead, use multipliers to modify the effects while keeping the base values consistent.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Best Practices</h2>
+                    
+                    <h3>Tune Your Values</h3>
+                    <p>The feel of your platformer depends greatly on these values:</p>
+                    <ul>
+                        <li><strong>Gravity</strong> - Higher values make jumping feel snappier</li>
+                        <li><strong>Jump Velocity</strong> - Determines jump height</li>
+                        <li><strong>Speed & Acceleration</strong> - Affect how responsive movement feels</li>
+                    </ul>
+                    
+                    <h3>Use Exportable Variables</h3>
+                    <p>Mark movement parameters with <code>@export</code> to easily tune them in the inspector.</p>
+                    
+                    <h3>Separate Input from Logic</h3>
+                    <p>Consider separating input handling from movement logic, making it easier to add features like controller support or AI control later.</p>
+                    
+                    <h3>Add Polish with Animation</h3>
+                    <p>Implement animations that reflect the character's state:</p>
+                    <ul>
+                        <li>Squash when landing</li>
+                        <li>Stretch when jumping</li>
+                        <li>Lean slightly in the direction of movement</li>
+                    </ul>
+                </div>
+                
+                <div class="tutorial-section">
+                    <h2>Complete Character Controller</h2>
+                    <p>Here's a complete example that combines all the techniques we've covered:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        <div class="code-line">extends CharacterBody2D</div>
+                        <div class="code-line"></div>
+                        <div class="code-line"># Movement parameters - adjust these to tune the feel</div>
+                        <div class="code-line">@export var speed = 300.0</div>
+                        <div class="code-line">@export var acceleration = 1500.0</div>
+                        <div class="code-line">@export var friction = 1000.0</div>
+                        <div class="code-line">@export var air_control = 0.7</div>
+                        <div class="code-line">@export var jump_velocity = -400.0</div>
+                        <div class="code-line">@export var jump_cut_height = 0.5</div>
+                        <div class="code-line">@export var coyote_time = 0.15</div>
+                        <div class="code-line">@export var jump_buffer_time = 0.1</div>
+                        <div class="code-line"></div>
+                        <div class="code-line"># Get the gravity from the project settings</div>
+                        <div class="code-line">var gravity = ProjectSettings.get_setting("physics
+                    </div>
+                </div>
+                
+                <div class="tutorial-nav">
+                    <a href="movement.html"><i class="fas fa-arrow-left"></i> Back to Overview</a>
+                    <a href="topdown-movement.html">Next: Top-down Movement <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Godot Template Generator</h2>
+                    <p>Making game development accessible</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="../../index.html#tutorials">Tutorials</a></li>
+                        <li><a href="../../index.html#generator">AI Generator</a></li>
+                        <li><a href="../../index.html#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://godotengine.org/" target="_blank">Godot Engine</a></li>
+                        <li><a href="https://docs.godotengine.org/" target="_blank">Godot Documentation</a></li>
+                        <li><a href="https://github.com/" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Godot Template Generator. All code examples are provided under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../scripts/main.js"></script>
+</body>
+</html>
+
