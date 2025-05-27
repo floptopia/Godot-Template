@@ -18,7 +18,7 @@ Whether you're looking to build a 2D platformer, top-down shooter, first-person 
 
 1. **Clone or download this repository**
    ```
-   git clone https://github.com/yourusername/GodotTemplateGenerator.git
+   git clone https://github.com/floptopia/GodotTemplateGenerator.git
    ```
    Or download the ZIP file from the repository page and extract it.
 
